@@ -16,7 +16,6 @@ import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
 
 public class TelematicsCollector {
     private static final String TAG 					= "TelematicsCollector";
-    private static String odometer = "null";
     //Singleton
     private static TelematicsCollector INSTANCE;
 
@@ -28,6 +27,7 @@ public class TelematicsCollector {
 
     public void getVehicleData(){
         //só para garantir que o getVehicleData será executado apenas se a conexão com o SYNC for estabelecida
+
         if (!Config.sdlServiceIsActive) {
             return;
         }
@@ -47,7 +47,6 @@ public class TelematicsCollector {
         vdRequest.setInstantFuelConsumption(true);
         vdRequest.setExternalTemperature(true);
          */
-
         vdRequest.setOnRPCResponseListener(new OnRPCResponseListener() {
             @Override
             public void onResponse(int correlationId, RPCResponse response) {
@@ -79,8 +78,8 @@ public class TelematicsCollector {
             return;
         }
         GetVehicleData vdRequest = new GetVehicleData();
-        //vdRequest.setPrndl(true);
-        vdRequest.setFuelLevel(true);
+        vdRequest.setPrndl(true);
+        vdRequest.setOdometer(true);
         //Aqui vc seta todos os dados que vc quer que a chamada retorne
         /*
         vdRequest.setVin(true);
