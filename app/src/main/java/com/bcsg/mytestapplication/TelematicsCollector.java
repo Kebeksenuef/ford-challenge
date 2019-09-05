@@ -10,6 +10,8 @@ import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.Alert;
 import com.smartdevicelink.proxy.rpc.GetVehicleData;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
+import com.smartdevicelink.proxy.rpc.RegisterAppInterfaceResponse;
+import com.smartdevicelink.proxy.rpc.VehicleType;
 import com.smartdevicelink.proxy.rpc.enums.PRNDL;
 import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
@@ -96,5 +98,19 @@ public class TelematicsCollector {
          */
         vdRequest.setOnRPCResponseListener(rpcResponseListener);
         Config.sdlManager.sendRPC(vdRequest);
+    }
+
+    public VehicleType getVehicleType() {
+        if (!Config.sdlServiceIsActive) {
+            return null;
+        }
+
+        RegisterAppInterfaceResponse registerAppInterfaceResponse = Config.sdlManager.getRegisterAppInterfaceResponse();
+
+        if (registerAppInterfaceResponse == null) {
+            throw new UnsupportedOperationException("NAO FOI POSSIVEL OBTER INFORMACOES DO VEICULO");
+        }
+
+        return registerAppInterfaceResponse.getVehicleType();
     }
 }
