@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication;
+package br.com.fiap.flan2.sdl;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +29,7 @@ public class SdlReceiver extends SdlBroadcastReceiver {
 
     @Override
     public Class<? extends SdlRouterService> defineLocalSdlRouterClass() {
-        return com.bcsg.mytestapplication.SdlRouterService.class;
+        return br.com.fiap.flan2.sdl.SdlRouterService.class;
     }
 
     @Override

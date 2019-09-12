@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication;
+package br.com.fiap.flan2.sdl;
 
 import com.smartdevicelink.managers.SdlManager;
 

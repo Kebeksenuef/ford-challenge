@@ -1,13 +1,8 @@
-package com.bcsg.mytestapplication;
+package br.com.fiap.flan2.sdl;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.smartdevicelink.proxy.RPCResponse;
-import com.smartdevicelink.proxy.rpc.Alert;
 import com.smartdevicelink.proxy.rpc.GetVehicleData;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
 import com.smartdevicelink.proxy.rpc.RegisterAppInterfaceResponse;

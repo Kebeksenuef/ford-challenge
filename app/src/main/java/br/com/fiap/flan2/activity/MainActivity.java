@@ -1,9 +1,7 @@
-package com.bcsg.mytestapplication;
+package br.com.fiap.flan2.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,13 +10,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bcsg.mytestapplication.BuildConfig;
+import com.bcsg.mytestapplication.R;
 import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
 import com.smartdevicelink.proxy.rpc.enums.PRNDL;
 import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
+
+import br.com.fiap.flan2.sdl.Config;
+import br.com.fiap.flan2.sdl.SdlReceiver;
+import br.com.fiap.flan2.sdl.SdlService;
+import br.com.fiap.flan2.sdl.TelematicsCollector;
 
 public class MainActivity extends AppCompatActivity {
 

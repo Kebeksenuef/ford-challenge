@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Start">
+        <activity android:name="br.com.fiap.flan2.activity.Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name="br.com.fiap.flan2.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -28,7 +28,7 @@
             android:name="com.smartdevicelink.managers.lockscreen.SDLLockScreenActivity"
             android:launchMode="singleTop" />
         <receiver
-            android:name=".SdlReceiver"
+            android:name="br.com.fiap.flan2.sdl.SdlReceiver"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver">
@@ -40,11 +40,11 @@
         </receiver>
 
         <service
-            android:name=".SdlService"
+            android:name="br.com.fiap.flan2.sdl.SdlService"
             android:enabled="true" />
 
         <service
-            android:name=".SdlRouterService"
+            android:name="br.com.fiap.flan2.sdl.SdlRouterService"
             android:exported="true"
             android:process="com.smartdevicelink.router">
             <intent-filter>
