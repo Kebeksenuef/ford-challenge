@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bcsg.mytestapplication">
 
+    <!-- To access Google+ APIs: -->
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -10,25 +11,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".Start">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name="com.smartdevicelink.managers.lockscreen.SDLLockScreenActivity"
             android:launchMode="singleTop" />
+
         <receiver
-            android:name=".SdlReceiver"
+            android:name=".sdl.SdlReceiver"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver">
@@ -40,11 +39,10 @@
         </receiver>
 
         <service
-            android:name=".SdlService"
+            android:name=".sdl.SdlService"
             android:enabled="true" />
-
         <service
-            android:name=".SdlRouterService"
+            android:name=".sdl.SdlRouterService"
             android:exported="true"
             android:process="com.smartdevicelink.router">
             <intent-filter>

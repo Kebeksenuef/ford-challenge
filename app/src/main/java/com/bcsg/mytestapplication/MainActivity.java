@@ -2,35 +2,45 @@ package com.bcsg.mytestapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bcsg.mytestapplication.globalvariables.Config;
+import com.bcsg.mytestapplication.sdl.SdlReceiver;
+import com.bcsg.mytestapplication.sdl.SdlService;
+import com.google.android.material.navigation.NavigationView;
 import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
 import com.smartdevicelink.proxy.rpc.enums.PRNDL;
 import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private Button btnShow;
     private TextView txtDado, txtKm,txtAviso;
     private static final String TAG = "MainActivity";
+    DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
 
         //If we are connected to a module we want to start our SdlService
@@ -42,66 +52,41 @@ public class MainActivity extends AppCompatActivity {
             startService(proxyIntent);
         }
 
-        txtDado = findViewById(R.id.txtDado);
-        txtKm = findViewById(R.id.txtKm);
-        btnShow = findViewById(R.id.btnShow);
-        txtAviso = findViewById(R.id.txtAviso);
+        mDrawerLayout = findViewById(R.id.drawerLayout);
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.open,R.string.close);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        btnShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //você só consegue pegar os dados se a conexão com o SYNC for estabelecida pelo SdlService
-                if (Config.sdlServiceIsActive) {
-                    //exemplo de chamada normal
-                    //TelematicsCollector.getInstance().getVehicleData();
-                    //exemplo de chamada passando o rpcListener como parametro
-                    TelematicsCollector.getInstance().getVehicleData(new OnRPCResponseListener() {
-                        @Override
-                        public void onResponse(int correlationId, RPCResponse response) {
-                            Log.i(TAG,"Houve uma resposta RPC!");
-                            if(response.getSuccess()){
-                                PRNDL prndl = ((GetVehicleDataResponse) response).getPrndl();
-                                //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
-                                Integer km = ((GetVehicleDataResponse) response).getOdometer();
-                                txtKm.setText("KM atual: " + km.toString());
-                                txtDado.setText("PRNDL Status: "+ prndl.toString());
-                            }else{
-                                Log.i("SdlService", "GetVehicleData was rejected.");
-                            }
-                        }
-                        @Override
-                        public void onError(int correlationId, Result resultCode, String info){
-                            Log.e(TAG, "onError: "+ resultCode+ " | Info: "+ info );
-                        }
-                    });
-                } else {
-                    txtAviso.setText("A conexão com o SYNC não foi estabelecida");
-                    //Toast.makeText(getApplicationContext(), "Conexão com o SYNC não foi estabelecida", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
+        HomeFragment fragment = new HomeFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.frame_layout, fragment, "Home");
+        fragmentTransaction.commit();
 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        int id = menuItem.getItemId();
+
+        if(id == R.id.home){
+            HomeFragment fragment = new HomeFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "Home");
+            fragmentTransaction.commit();
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onBackPressed(){
+        if(mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
         }
-        return super.onOptionsItemSelected(item);
     }
 
 }

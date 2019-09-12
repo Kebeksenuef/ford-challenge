@@ -1,5 +1,6 @@
-package com.bcsg.mytestapplication;
+package com.bcsg.mytestapplication.multimidiacenter;
 
+import com.bcsg.mytestapplication.globalvariables.Config;
 import com.smartdevicelink.proxy.rpc.Alert;
 
 public class HMIScreenManager {

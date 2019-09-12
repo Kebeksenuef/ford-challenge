@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication;
+package com.bcsg.mytestapplication.sdl;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -9,13 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bcsg.mytestapplication.BuildConfig;
+import com.bcsg.mytestapplication.globalvariables.Config;
+import com.bcsg.mytestapplication.multimidiacenter.HMIScreenManager;
+import com.bcsg.mytestapplication.R;
+import com.bcsg.mytestapplication.TelematicsCollector;
 import com.smartdevicelink.managers.CompletionListener;
 import com.smartdevicelink.managers.SdlManager;
 import com.smartdevicelink.managers.SdlManagerListener;
@@ -29,25 +29,15 @@ import com.smartdevicelink.managers.screen.menu.VoiceCommand;
 import com.smartdevicelink.managers.screen.menu.VoiceCommandSelectionListener;
 import com.smartdevicelink.protocol.enums.FunctionID;
 import com.smartdevicelink.proxy.RPCNotification;
-import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.TTSChunkFactory;
-import com.smartdevicelink.proxy.rpc.Alert;
-import com.smartdevicelink.proxy.rpc.GetVehicleData;
-import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
 import com.smartdevicelink.proxy.rpc.OnHMIStatus;
-import com.smartdevicelink.proxy.rpc.OnPermissionsChange;
-import com.smartdevicelink.proxy.rpc.OnVehicleData;
-import com.smartdevicelink.proxy.rpc.PermissionItem;
 import com.smartdevicelink.proxy.rpc.Speak;
 import com.smartdevicelink.proxy.rpc.enums.AppHMIType;
 import com.smartdevicelink.proxy.rpc.enums.FileType;
 import com.smartdevicelink.proxy.rpc.enums.HMILevel;
 import com.smartdevicelink.proxy.rpc.enums.InteractionMode;
-import com.smartdevicelink.proxy.rpc.enums.PRNDL;
-import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.enums.TriggerSource;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCNotificationListener;
-import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
 import com.smartdevicelink.transport.BaseTransportConfig;
 import com.smartdevicelink.transport.MultiplexTransportConfig;
 import com.smartdevicelink.transport.TCPTransportConfig;
@@ -197,7 +187,7 @@ public class SdlService extends Service {
 
                                 setVoiceCommands();
                                 sendMenus();
-                                //performWelcomeSpeak();
+                                performWelcomeSpeak();
                                 performWelcomeShow();
                                 preloadChoices();
                             }
@@ -252,14 +242,12 @@ public class SdlService extends Service {
                 Log.i(TAG, "Voice Command 1 triggered");
             }
         });
-
         VoiceCommand voiceCommand2 = new VoiceCommand(list2, new VoiceCommandSelectionListener() {
             @Override
             public void onVoiceCommandSelected() {
                 Log.i(TAG, "Voice Command 2 triggered");
             }
         });
-
         Config.sdlManager.getScreenManager().setVoiceCommands(Arrays.asList(voiceCommand1,voiceCommand2));
     }
 
@@ -267,15 +255,10 @@ public class SdlService extends Service {
      *  Add menus for the app on SDL.
      */
     private void sendMenus(){
-
         // some arts
         SdlArtwork livio = new SdlArtwork("livio", FileType.GRAPHIC_PNG, R.drawable.sdl, false);
-
         // some voice commands
         List<String> voice2 = Collections.singletonList("Cell two");
-
-
-
             MenuCell mainCell1 = new MenuCell("Test Cell 1 (speak)", livio, null, new MenuSelectionListener() {
             @Override
             public void onTriggered(TriggerSource trigger) {
@@ -283,7 +266,6 @@ public class SdlService extends Service {
                 HMIScreenManager.getInstance().showTest("Test Cell 1 has been selected");
             }
         });
-
         MenuCell mainCell2 = new MenuCell("Test Cell 2", null, voice2, new MenuSelectionListener() {
             @Override
             public void onTriggered(TriggerSource trigger) {
@@ -291,9 +273,7 @@ public class SdlService extends Service {
                 HMIScreenManager.getInstance().showTest("Test Cell 2 has been selected");
             }
         });
-
         // SUB MENU
-
         MenuCell subCell1 = new MenuCell("SubCell 1",null, null, new MenuSelectionListener() {
             @Override
             public void onTriggered(TriggerSource trigger) {
@@ -301,7 +281,6 @@ public class SdlService extends Service {
                 HMIScreenManager.getInstance().showTest("Sub cell 1 triggered");
             }
         });
-
         MenuCell subCell2 = new MenuCell("SubCell 2",null, null, new MenuSelectionListener() {
             @Override
             public void onTriggered(TriggerSource trigger) {
@@ -309,17 +288,14 @@ public class SdlService extends Service {
                 HMIScreenManager.getInstance().showTest("Sub cell 2 triggered");
             }
         });
-
         // sub menu parent cell
         MenuCell mainCell3 = new MenuCell("Test Cell 3 (sub menu)", null, Arrays.asList(subCell1,subCell2));
-
         MenuCell mainCell4 = new MenuCell("Show Perform Interaction", null, null, new MenuSelectionListener() {
             @Override
             public void onTriggered(TriggerSource trigger) {
                 showPerformInteraction();
             }
         });
-
         MenuCell mainCell5 = new MenuCell("Clear the menu",null, null, new MenuSelectionListener() {
             @Override
             public void onTriggered(TriggerSource trigger) {
@@ -329,17 +305,14 @@ public class SdlService extends Service {
                 HMIScreenManager.getInstance().showAlert("Menu Cleared");
             }
         });
-
         MenuCell mainCell6 = new MenuCell("Get Vehicle Data",null, null, new MenuSelectionListener() {
             @Override
             public void onTriggered(TriggerSource trigger) {
                 Log.i(TAG, "Get Vehicle Data: "+ trigger.toString());
                 HMIScreenManager.getInstance().showTest("Get Vehicle Data selected");
                 TelematicsCollector.getInstance().getVehicleData();
-
             }
         });
-
         // Send the entire menu off to be created
         Config.sdlManager.getScreenManager().setMenu(Arrays.asList(mainCell6, mainCell1, mainCell2, mainCell3, mainCell4));
     }
@@ -350,7 +323,6 @@ public class SdlService extends Service {
     private void performWelcomeSpeak(){
         Config.sdlManager.sendRPC(new Speak(TTSChunkFactory.createSimpleTTSChunks(WELCOME_SPEAK)));
     }
-
     /**
      * Use the Screen Manager to set the initial screen text and set the image.
      * Because we are setting multiple items, we will call beginTransaction() first,
@@ -370,9 +342,7 @@ public class SdlService extends Service {
             }
         });
     }
-
     // Choice Set
-
     private void preloadChoices(){
         ChoiceCell cell1 = new ChoiceCell("Item 1");
         ChoiceCell cell2 = new ChoiceCell("Item 2");
@@ -380,7 +350,6 @@ public class SdlService extends Service {
         choiceCellList = new ArrayList<>(Arrays.asList(cell1,cell2,cell3));
         Config.sdlManager.getScreenManager().preloadChoices(choiceCellList, null);
     }
-
     private void showPerformInteraction(){
         if (choiceCellList != null) {
             ChoiceSet choiceSet = new ChoiceSet("Choose an Item from the list", choiceCellList, new ChoiceSetSelectionListener() {
@@ -388,7 +357,6 @@ public class SdlService extends Service {
                 public void onChoiceSelected(ChoiceCell choiceCell, TriggerSource triggerSource, int rowIndex) {
                     HMIScreenManager.getInstance().showAlert(choiceCell.getText() + " was selected");
                 }
-
                 @Override
                 public void onError(String error) {
                     Log.e(TAG, "There was an error showing the perform interaction: "+ error);

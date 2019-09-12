@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication;
+package com.bcsg.mytestapplication.globalvariables;
 
 import com.smartdevicelink.managers.SdlManager;
 
