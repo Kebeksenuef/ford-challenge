@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:visible="false" />
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
@@ -15,8 +10,8 @@
             android:icon="@drawable/ic_action_home"
             />
         <item
-            android:id="@+id/work"
-            android:title="Work"
+            android:id="@+id/consecionárias"
+            android:title="Consecionárias"
             android:icon="@drawable/ic_action_conse"
             />
     </group>
@@ -25,7 +20,7 @@
         <menu>
             <item
                 android:id="@+id/setting"
-                android:title="Settings"
+                android:title="Configurações"
                 android:icon="@drawable/ic_action_setting"
                 />
             <item

@@ -1,7 +1,7 @@
-package com.bcsg.mytestapplication;
+package com.bcsg.mytestapplication.sdl.fragments;
 
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,13 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bcsg.mytestapplication.globalvariables.Config;
-import com.bcsg.mytestapplication.sdl.SdlReceiver;
-import com.bcsg.mytestapplication.sdl.SdlService;
-import com.google.android.gms.plus.PlusOneButton;
+import com.bcsg.mytestapplication.R;
+import com.bcsg.mytestapplication.TelematicsCollector;
+import com.bcsg.mytestapplication.sdl.globalvariables.Config;
 import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
+import com.smartdevicelink.proxy.rpc.VehicleType;
 import com.smartdevicelink.proxy.rpc.enums.PRNDL;
 import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
@@ -34,7 +35,7 @@ public class HomeFragment extends Fragment {
     //private final String PLUS_ONE_URL = "http://developer.android.com";
     //private PlusOneButton mPlusOneButton;
 
-    private Button btnMostrar;
+    private Button btnMostrar, btnVerificar, btnNotificar;
     private TextView txtStatus, txtKm,txtAviso;
     private static final String TAG = "MainActivity";
 
@@ -42,21 +43,20 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        //Find the +1 button
-        //mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button);
-        //button?
-
         btnMostrar = (Button) view.findViewById(R.id.btnMostrar);
+        btnNotificar = view.findViewById(R.id.btnNotificar);
+        btnVerificar = view.findViewById(R.id.btnVerificar);
+
         txtStatus = (TextView) view.findViewById(R.id.txtStatus);
         txtKm = (TextView) view.findViewById(R.id.txtKm);
-        txtAviso = (TextView) view.findViewById(R.id.txtAviso);
+
+        final Activity activity = getActivity();
 
         btnMostrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +75,6 @@ public class HomeFragment extends Fragment {
 
                                 //TelematicsCollector tc = new TelematicsCollector();
                                 //txtKm.setText("Modelo CARRO: "+tc.getVehicleType().getModel());
-                                //VehicleType dado =
-                                //        ((RegisterAppInterfaceResponse) response).getVehicleType();
                                 //txtKm.setText("MODELO: CARRO: "+dado);
                                 //System.out.println("MODELO CARRO: "+dado);
                                 //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
@@ -93,9 +91,33 @@ public class HomeFragment extends Fragment {
                         }
                     });
                 } else {
-                    txtAviso.setText("A conexão com o SYNC não foi estabelecida");
-                    //Toast.makeText(getApplicationContext(), "Conexão com o SYNC não foi estabelecida", Toast.LENGTH_SHORT).show();
+                    //txtAviso.setText("A conexão com o SYNC não foi estabelecida");
+                    Toast.makeText(activity, "Conexão com o SYNC não foi estabelecida", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnVerificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity,"Você clicou em verificar manutenção",
+                        Toast.LENGTH_SHORT).show();
+
+                VehicleType vehicleType = TelematicsCollector.getInstance().getVehicleType();
+
+                if (vehicleType != null) {
+                    txtKm.setText(vehicleType.getModel());
+                } else {
+                    txtKm.setText("Nao foi possivel obter dados do veiculo");
+                }
+            }
+        });
+
+        btnNotificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity,"Você clicou em notificar manutenção",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 

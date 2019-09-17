@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication;
+package com.bcsg.mytestapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,26 +12,20 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
-import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.bcsg.mytestapplication.globalvariables.Config;
-import com.bcsg.mytestapplication.sdl.SdlReceiver;
-import com.bcsg.mytestapplication.sdl.SdlService;
+import com.bcsg.mytestapplication.BuildConfig;
+import com.bcsg.mytestapplication.R;
+import com.bcsg.mytestapplication.sdl.fragments.ConseFragment;
+import com.bcsg.mytestapplication.sdl.fragments.HomeFragment;
+import com.bcsg.mytestapplication.sdl.fragments.LogoutFragment;
+import com.bcsg.mytestapplication.sdl.fragments.SettingFragment;
+import com.bcsg.mytestapplication.sdl.sdl.SdlReceiver;
+import com.bcsg.mytestapplication.sdl.sdl.SdlService;
 import com.google.android.material.navigation.NavigationView;
-import com.smartdevicelink.proxy.RPCResponse;
-import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
-import com.smartdevicelink.proxy.rpc.enums.PRNDL;
-import com.smartdevicelink.proxy.rpc.enums.Result;
-import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private Button btnShow;
-    private TextView txtDado, txtKm,txtAviso;
     private static final String TAG = "MainActivity";
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
@@ -76,7 +70,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Home");
             fragmentTransaction.commit();
+        }else if(id == R.id.consecionárias){
+            ConseFragment fragment = new ConseFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "Consecionárias");
+            fragmentTransaction.commit();
+        }else if (id == R.id.setting){
+            SettingFragment fragment = new SettingFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "Configurações");
+            fragmentTransaction.commit();
+        }else if (id == R.id.logout){
+            LogoutFragment fragment = new LogoutFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "Logout");
+            fragmentTransaction.commit();
         }
+
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

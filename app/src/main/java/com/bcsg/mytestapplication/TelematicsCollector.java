@@ -2,8 +2,8 @@ package com.bcsg.mytestapplication;
 
 import android.util.Log;
 
-import com.bcsg.mytestapplication.globalvariables.Config;
-import com.bcsg.mytestapplication.multimidiacenter.HMIScreenManager;
+import com.bcsg.mytestapplication.sdl.globalvariables.Config;
+import com.bcsg.mytestapplication.sdl.multimidiacenter.HMIScreenManager;
 import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.GetVehicleData;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
@@ -105,7 +105,7 @@ public class TelematicsCollector {
         RegisterAppInterfaceResponse registerAppInterfaceResponse = Config.sdlManager.getRegisterAppInterfaceResponse();
         if (registerAppInterfaceResponse == null) {
             System.out.println("HOUVE UM ERRO AQUI!!!");
-            throw new UnsupportedOperationException("NAO FOI POSSIVEL OBTER INFORMACOES DO VEICULO");
+            return null;
         }
         return registerAppInterfaceResponse.getVehicleType();
     }

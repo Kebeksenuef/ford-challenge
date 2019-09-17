@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication.sdl;
+package com.bcsg.mytestapplication.sdl.sdl;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -12,8 +12,8 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.bcsg.mytestapplication.BuildConfig;
-import com.bcsg.mytestapplication.globalvariables.Config;
-import com.bcsg.mytestapplication.multimidiacenter.HMIScreenManager;
+import com.bcsg.mytestapplication.sdl.globalvariables.Config;
+import com.bcsg.mytestapplication.sdl.multimidiacenter.HMIScreenManager;
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.TelematicsCollector;
 import com.smartdevicelink.managers.CompletionListener;
