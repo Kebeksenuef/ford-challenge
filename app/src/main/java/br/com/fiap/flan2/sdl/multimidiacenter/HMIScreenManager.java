@@ -1,6 +1,6 @@
 package br.com.fiap.flan2.sdl;
 
-import br.com.fiap.flan2.sdl.Config;
+import com.bcsg.mytestapplication.globalvariables.Config;
 import com.smartdevicelink.proxy.rpc.Alert;
 
 public class HMIScreenManager {

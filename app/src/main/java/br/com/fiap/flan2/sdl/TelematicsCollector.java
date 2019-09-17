@@ -2,6 +2,8 @@ package br.com.fiap.flan2.sdl;
 
 import android.util.Log;
 
+import com.bcsg.mytestapplication.globalvariables.Config;
+import com.bcsg.mytestapplication.multimidiacenter.HMIScreenManager;
 import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.GetVehicleData;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
@@ -76,7 +78,7 @@ public class TelematicsCollector {
         }
         GetVehicleData vdRequest = new GetVehicleData();
         vdRequest.setPrndl(true);
-        vdRequest.setOdometer(true);
+        //vdRequest.setOdometer(true);
         //Aqui vc seta todos os dados que vc quer que a chamada retorne
         /*
         vdRequest.setVin(true);
@@ -95,17 +97,27 @@ public class TelematicsCollector {
         Config.sdlManager.sendRPC(vdRequest);
     }
 
+    //capturar dados do carro
     public VehicleType getVehicleType() {
         if (!Config.sdlServiceIsActive) {
             return null;
         }
-
         RegisterAppInterfaceResponse registerAppInterfaceResponse = Config.sdlManager.getRegisterAppInterfaceResponse();
-
         if (registerAppInterfaceResponse == null) {
+            System.out.println("HOUVE UM ERRO AQUI!!!");
             throw new UnsupportedOperationException("NAO FOI POSSIVEL OBTER INFORMACOES DO VEICULO");
         }
-
         return registerAppInterfaceResponse.getVehicleType();
     }
+
+    public String getSdlVersion(){
+        RegisterAppInterfaceResponse registerAppInterfaceResponse =
+                Config.sdlManager.getRegisterAppInterfaceResponse();
+        if (registerAppInterfaceResponse == null){
+            throw new UnsupportedOperationException("NAO FOI POSSIVEL OBTER INFORMACOES DO VEICULO");
+        }
+        return String.valueOf(Log.i(TAG,"VERSÃO SDL: "+
+                registerAppInterfaceResponse.getSdlVersion()));
+    }
+
 }
