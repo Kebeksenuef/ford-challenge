@@ -24,7 +24,8 @@ public class Start extends AppCompatActivity {
         new Thread(new Runnable(){
             @Override
             public void run() {
-                AzureConnection.getConnection();
+                List<Modelo> modelos = AzureConnection.consultarModelos();
+                System.out.println(modelos);
             }
         }).start();
 

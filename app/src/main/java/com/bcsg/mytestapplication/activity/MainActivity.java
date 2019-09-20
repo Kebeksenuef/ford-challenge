@@ -2,17 +2,16 @@ package com.bcsg.mytestapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.util.Log;
-import android.view.MenuItem;
 
 import com.bcsg.mytestapplication.BuildConfig;
 import com.bcsg.mytestapplication.R;
@@ -58,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.add(R.id.frame_layout, fragment, "Home");
         fragmentTransaction.commit();
 
+        //List<Modelo> modelos = AzureConnection.consultarModelos();
+
+        //System.out.println(modelos);
     }
 
     @Override

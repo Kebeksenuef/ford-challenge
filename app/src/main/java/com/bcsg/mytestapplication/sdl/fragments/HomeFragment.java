@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.TelematicsCollector;
+import com.bcsg.mytestapplication.dao.AzureConnection;
 import com.bcsg.mytestapplication.sdl.globalvariables.Config;
 import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;

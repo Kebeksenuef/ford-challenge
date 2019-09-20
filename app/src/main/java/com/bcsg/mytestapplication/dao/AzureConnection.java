@@ -18,20 +18,25 @@ public class AzureConnection {
     private static final String DATABASE = "Flan2";
     private static final String USERNAME = "ford-user";
     private static final String PASSWORD = "FiapChallengeP@$$w0rd";
-    private static final String CONNECTION_STRING = "jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+    private static final String CONNECTION_STRING = "jdbc:jtds:sqlserver://%s:1433/%s;user=%s;password=%s;encrypt=true;trustServerCertificate=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static final String QUERY_CONSULTA_MODELOS = "SELECT [CODIGO],[NOME] FROM [dbo].[MODELOS]";
 
     private static final String TAG = "CONEXÃO";
 
     public static Connection getConnection() {
-        Connection conexao;
+        Connection conexao=null;
         try {
+
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
+
             conexao = DriverManager.getConnection(String.format(CONNECTION_STRING, HOST_NAME, DATABASE, USERNAME, PASSWORD));
             Log.i(TAG,"CONEXÃO FUNCIONANDO");
         } catch (SQLException e) {
             conexao = null;
             e.printStackTrace();
             Log.i(TAG,"CONEXÃO NÃO ESTABELECIDA!");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return conexao;
     }
