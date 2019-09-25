@@ -3,10 +3,12 @@ package com.bcsg.mytestapplication.dto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Revisao {
-    private int codigoRevisao;
-    private String codigoCarro;
+    private int codigo;
+    private String descricao;
+    private String codigoVeiculo;
     private LocalDateTime agendamento;
     private LocalDateTime inicio;
     private LocalDateTime termino;
@@ -18,21 +20,35 @@ public class Revisao {
         this.itens = new ArrayList<>();
     }
 
-    public int getCodigoRevisao() {
+    public Revisao(int codigo) {
+        this();
 
-        return codigoRevisao;
+        this.codigo = codigo;
     }
 
-    public void setCodigoRevisao(int codigoRevisao) {
-        this.codigoRevisao = codigoRevisao;
+    public int getCodigo() {
+
+        return codigo;
     }
 
-    public String getCodigoCarro() {
-        return codigoCarro;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
-    public void setCodigoCarro(String codigoCarro) {
-        this.codigoCarro = codigoCarro;
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getCodigoVeiculo() {
+        return codigoVeiculo;
+    }
+
+    public void setCodigoVeiculo(String codigoVeiculo) {
+        this.codigoVeiculo = codigoVeiculo;
     }
 
     public LocalDateTime getAgendamento() {
@@ -65,5 +81,18 @@ public class Revisao {
 
     public void setItens(List<ItemRevisao> itens) {
         this.itens = itens;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Revisao revisao = (Revisao) o;
+        return codigo == revisao.codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }

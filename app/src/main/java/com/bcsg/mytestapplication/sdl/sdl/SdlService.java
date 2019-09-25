@@ -167,7 +167,7 @@ public class SdlService extends Service {
 
             // The app type to be used
             Vector<AppHMIType> appType = new Vector<>();
-            appType.add(AppHMIType.DEFAULT);
+            appType.add(AppHMIType.BACKGROUND_PROCESS);
 
             // The manager listener helps you know when certain events that pertain to the SDL Manager happen
             // Here we will listen for ON_HMI_STATUS and ON_COMMAND notifications
@@ -184,7 +184,6 @@ public class SdlService extends Service {
 
                                 //informando que o serviço está ativo... só assim vc consegue acessar os dados do carro
                                 Config.sdlServiceIsActive = true;
-
                                 setVoiceCommands();
                                 sendMenus();
                                 performWelcomeSpeak();
@@ -199,7 +198,6 @@ public class SdlService extends Service {
                 public void onDestroy() {
                     SdlService.this.stopSelf();
                     Log.i(TAG,"A APLICAÇÃO FOI INTERROMPIDA INESPERADAMENTE");
-
                     //se desconectar, significa que o serviço não está ativo
                     Config.sdlServiceIsActive = false;
                 }
@@ -209,7 +207,6 @@ public class SdlService extends Service {
                     e.getStackTrace();
                     System.out.println("ERROOOOOO");
                     Log.i(TAG,"Ocorreu um erro");
-
                     //se der erro, significa que o serviço não está ativo
                     Config.sdlServiceIsActive = false;
                 }
@@ -232,10 +229,8 @@ public class SdlService extends Service {
      * Send some voice commands
      */
     private void setVoiceCommands(){
-
         List<String> list1 = Collections.singletonList("Command One");
         List<String> list2 = Collections.singletonList("Command two");
-
         VoiceCommand voiceCommand1 = new VoiceCommand(list1, new VoiceCommandSelectionListener() {
             @Override
             public void onVoiceCommandSelected() {

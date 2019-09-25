@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +61,7 @@ public class HomeFragment extends Fragment {
 
         final Activity activity = getActivity();
 
+        //Mostrar status do carro kilimetragem...
         btnMostrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,33 +95,31 @@ public class HomeFragment extends Fragment {
                         }
                     });
                 } else {
-                    //txtAviso.setText("A conexão com o SYNC não foi estabelecida");
                     Toast.makeText(activity, "Conexão com o SYNC não foi estabelecida", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        //verificar as peças a serem vistas na manutenção
         btnVerificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity,"Você clicou em verificar manutenção",
-                        Toast.LENGTH_SHORT).show();
-
-                VehicleType vehicleType = TelematicsCollector.getInstance().getVehicleType();
-
-                if (vehicleType != null) {
-                    txtKm.setText(vehicleType.getModel());
-                } else {
-                    txtKm.setText("Nao foi possivel obter dados do veiculo");
-                }
+                CheckFragment fragment = new CheckFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, new CheckFragment());
+                fragmentTransaction.commit();
             }
         });
 
         btnNotificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity,"Você clicou em notificar manutenção",
-                        Toast.LENGTH_SHORT).show();
+                CheckFragment fragment = new CheckFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, new NotifyFragment());
+                fragmentTransaction.commit();
             }
         });
 
@@ -128,9 +129,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // Refresh the state of the +1 button each time the activity receives focus.
-        //mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
     }
-
 
 }
