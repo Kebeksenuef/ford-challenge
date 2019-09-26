@@ -82,8 +82,8 @@ public class HomeFragment extends Fragment {
                                 //txtKm.setText("MODELO: CARRO: "+dado);
                                 //System.out.println("MODELO CARRO: "+dado);
                                 //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
-                                //Integer km = ((GetVehicleDataResponse) response).getOdometer();
-                                //txtKm.setText("KM atual: " + km.toString());
+                                Integer km = ((GetVehicleDataResponse) response).getOdometer();
+                                txtKm.setText("KM atual: " + km);
                                 txtStatus.setText("PRNDL Status: "+ prndl.toString());
                             }else{
                                 Log.i("SdlService", "GetVehicleData was rejected.");

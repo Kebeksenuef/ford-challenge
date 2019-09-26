@@ -32,6 +32,7 @@ public class TelematicsCollector {
         }
         GetVehicleData vdRequest = new GetVehicleData();
         vdRequest.setPrndl(true);
+        vdRequest.setOdometer(true);
         //Aqui vc seta todos os dados que vc quer que a chamada retorne
         /*
         vdRequest.setVin(true);
@@ -78,7 +79,7 @@ public class TelematicsCollector {
         }
         GetVehicleData vdRequest = new GetVehicleData();
         vdRequest.setPrndl(true);
-        //vdRequest.setOdometer(true);
+        vdRequest.setOdometer(true);
         //Aqui vc seta todos os dados que vc quer que a chamada retorne
         /*
         vdRequest.setVin(true);

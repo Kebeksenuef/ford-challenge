@@ -118,15 +118,12 @@ public class AzureConnection {
 
                     revisoes.add(revisao);
                 }
-
                 revisao.getItens().add(item);
             }
-
             comando.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return revisoes;
     }
 }

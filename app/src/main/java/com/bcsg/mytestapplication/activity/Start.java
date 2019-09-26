@@ -40,17 +40,17 @@ public class Start extends AppCompatActivity {
             Log.i(TAG, modelos.get(j).getNome());
         }*/
 
-        LongTask log = new LongTask();
+        //LongTask log = new LongTask();
         //log.execute();
 
-        try {
-            List<Modelo> modelos = new LongTask().execute().get();
+        //try {
+            /*List<Modelo> modelos = new LongTask().execute().get();
 
             String [] vetorModelo = new String[3];
             System.out.println(modelos);
             for (int i = 0; i<modelos.size(); i++) {
                 vetorModelo[i] = modelos.get(i).getNome();
-            }
+            }*/
 
         Spinner spinner = findViewById(R.id.spinner);
         String[] cars = new String[]{"FUSION", "FORDKA", "ECOSPORT"};
@@ -72,11 +72,11 @@ public class Start extends AppCompatActivity {
             }
         });
 
-        } catch (ExecutionException e) {
+        /*} catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
