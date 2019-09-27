@@ -22,6 +22,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.PersonVi
 
     public RecycleAdapter(List<ItemRevisao> itemRevisaos){
         this.itemRevisaos = itemRevisaos;
+        
+        if (this.itemRevisaos == null) {
+            this.itemRevisaos = new ArrayList<>();
+        }
     }
 
     //método é chamado quando o ViewHolder personalizado precisa ser inicializado.
@@ -36,13 +40,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.PersonVi
 
     @Override
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
-        holder.item.setText(AzureConnection.consutlarItens().get(position).getDescricao());
+        holder.item.setText(itemRevisaos.get(position).getDescricao());
         holder.cb.setChecked(false);
     }
 
     @Override
     public int getItemCount() {
-        return AzureConnection.consutlarItens().size();
+        return itemRevisaos.size();
     }
 
     @Override
