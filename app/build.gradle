@@ -46,6 +46,10 @@ android {
     lintOptions {
         disable 'GoogleAppIndexingWarning'
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {

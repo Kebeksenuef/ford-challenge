@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sdl.fragments.CheckFragment">
+    tools:context=".activity.CheckActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recycle_view"/>
+            android:id="@+id/recycle_view_itens"/>
         <!--
         <ListView
             android:layout_width="200dp"

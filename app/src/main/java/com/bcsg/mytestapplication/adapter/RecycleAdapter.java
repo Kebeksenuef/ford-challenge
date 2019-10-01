@@ -14,14 +14,25 @@ import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.dao.AzureConnection;
 import com.bcsg.mytestapplication.dto.ItemRevisao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.PersonViewHolder> {
 
-    List<ItemRevisao> itemRevisaos;
+    List<ItemRevisao> itensRevisao;
 
-    public RecycleAdapter(List<ItemRevisao> itemRevisaos){
-        this.itemRevisaos = itemRevisaos;
+    public RecycleAdapter(List<ItemRevisao> itensRevisao){
+        this.itensRevisao = itensRevisao;
+
+        if (this.itensRevisao == null){
+            this.itensRevisao = new ArrayList<>();
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
+        holder.item.setText(itensRevisao.get(position).getDescricao());
+        holder.cb.setChecked(false);
     }
 
     //método é chamado quando o ViewHolder personalizado precisa ser inicializado.
@@ -31,18 +42,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.PersonVi
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.items, parent,false);
         PersonViewHolder pvh = new PersonViewHolder(v);
+
         return pvh;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
-        holder.item.setText(AzureConnection.consutlarItens().get(position).getDescricao());
-        holder.cb.setChecked(false);
-    }
 
     @Override
     public int getItemCount() {
-        return AzureConnection.consutlarItens().size();
+        return itensRevisao.size();
     }
 
     @Override
@@ -51,7 +58,6 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.PersonVi
     }
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder{
-
         CardView cv;
         TextView item;
         CheckBox cb;

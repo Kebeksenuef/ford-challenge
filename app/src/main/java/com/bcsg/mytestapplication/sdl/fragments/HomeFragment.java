@@ -2,6 +2,7 @@ package com.bcsg.mytestapplication.sdl.fragments;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.TelematicsCollector;
+import com.bcsg.mytestapplication.activity.CheckActivity;
+import com.bcsg.mytestapplication.activity.MainActivity;
 import com.bcsg.mytestapplication.dao.AzureConnection;
 import com.bcsg.mytestapplication.sdl.globalvariables.Config;
 import com.smartdevicelink.proxy.RPCResponse;
@@ -104,11 +107,14 @@ public class HomeFragment extends Fragment {
         btnVerificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckFragment fragment = new CheckFragment();
+                /*CheckFragment fragment = new CheckFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frame_layout, new CheckFragment());
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+                Intent intent = new Intent(v.getContext(), CheckActivity.class);
+
+                startActivity(intent);
             }
         });
 

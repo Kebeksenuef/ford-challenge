@@ -21,7 +21,8 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.CheckActivity" android:label="@string/itens_revisao"/>
         <activity
             android:name="com.smartdevicelink.managers.lockscreen.SDLLockScreenActivity"
             android:launchMode="singleTop" />

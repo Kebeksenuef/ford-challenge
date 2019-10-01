@@ -17,24 +17,24 @@ import java.util.List;
 
 public class AzureConnection {
 
-    private static final String HOST_NAME = "ford-challenge.database.windows.net";
+    private static final String HOST_NAME = "fiap-challenge.database.windows.net";
     private static final String DATABASE = "Flan2";
-    private static final String USERNAME = "ford-user";
-    private static final String PASSWORD = "FiapChallengeP@$$w0rd";
+    private static final String USERNAME = "fiap-user";
+    private static final String PASSWORD = "ChallengeP@$$w0rd";
     private static final String CONNECTION_STRING = "jdbc:jtds:sqlserver://%s:1433/%s;user=%s;password=%s;encrypt=true;trustServerCertificate=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-    private static final String QUERY_CONSULTA_MODELOS = "SELECT [CODIGO],[NOME] FROM [dbo].[MODELOS]";
-    private static final String QUERY_CONSULTA_ITENS = "SELECT [CODIGO],[DESCRICAO],[PRECO] FROM [dbo].[ITENS]";
+    private static final String QUERY_CONSULTA_MODELOS = "SELECT [CODIGO],[NOME] FROM [dbo].[MODELO]";
+    private static final String QUERY_CONSULTA_ITENS = "SELECT [CODIGO],[DESCRICAO],[PRECO] FROM [dbo].[ITEM]";
     private static final String QUERY_CONSULTA_REVISOES = "SELECT R.[CODIGO] AS CODIGO_REVISAO,R.[DESCRICAO],R.[CODIGO_VEICULO],R.[DATA_HORA_AGENDA],R.[DATA_HORA_INICIO],R.[DATA_HORA_FIM], I.[CODIGO] AS CODIGO_ITEM, I.[DESCRICAO] as DESCRICAO_ITEM, I.[PRECO] AS PRECO_ITEM, IR.[QUANTIDADE] AS QUANTIDADE_ITEM\n" +
-            "FROM [dbo].[REVISOES] R\n" +
-            "INNER JOIN [dbo].[ITENS_REVISAO] IR ON IR.CODIGO_REVISAO = R.CODIGO\n" +
-            "INNER JOIN [dbo].[ITENS] I ON I.CODIGO = IR.CODIGO_ITEM\n" +
+            "FROM [dbo].[REVISAO] R\n" +
+            "INNER JOIN [dbo].[ITEM_REVISAO] IR ON IR.CODIGO_REVISAO = R.CODIGO\n" +
+            "INNER JOIN [dbo].[ITEM] I ON I.CODIGO = IR.CODIGO_ITEM\n" +
             "WHERE R.[CODIGO_VEICULO] = ?\n" +
             "ORDER BY CODIGO_REVISAO;";
 
     private static final String TAG = "CONEXÃO";
 
     public static Connection getConnection() {
-        Connection conexao=null;
+        Connection conexao = null;
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             conexao = DriverManager.getConnection(String.format(CONNECTION_STRING, HOST_NAME, DATABASE, USERNAME, PASSWORD));
