@@ -58,13 +58,13 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.PersonVi
     }
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder{
-        CardView cv;
+        //CardView cv;
         TextView item;
         CheckBox cb;
 
         public PersonViewHolder(@NonNull View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
+            //cv = (CardView) itemView.findViewById(R.id.cv);
             item = (TextView)  itemView.findViewById(R.id.txtV);
             cb = (CheckBox) itemView.findViewById(R.id.cb);
         }

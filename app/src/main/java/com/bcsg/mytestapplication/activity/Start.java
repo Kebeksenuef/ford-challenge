@@ -39,7 +39,6 @@ public class Start extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (parent.getItemAtPosition(position).equals("EcoSport")) {
                     Intent intent = new Intent(view.getContext(), MainActivity.class);
-
                     startActivity(intent);
                 }
             }

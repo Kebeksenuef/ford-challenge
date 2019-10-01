@@ -6,9 +6,11 @@
     tools:context=".activity.CheckActivity">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_view_itens"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recycle_view_itens"/>
+            android:elevation="0dp"
+            />
         <!--
         <ListView
             android:layout_width="200dp"
