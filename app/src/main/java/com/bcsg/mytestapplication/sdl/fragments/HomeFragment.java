@@ -30,6 +30,10 @@ import com.smartdevicelink.proxy.rpc.enums.PRNDL;
 import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Random;
+
 /**
  * A fragment with a Google +1 button.
  */
@@ -62,6 +66,8 @@ public class HomeFragment extends Fragment {
         txtStatus = (TextView) view.findViewById(R.id.txtStatus);
         txtKm = (TextView) view.findViewById(R.id.txtKm);
 
+        txtKm.setText(String.format("%s Km", formatarQuilometragem(new Random().nextFloat() * 100000)));
+
         final Activity activity = getActivity();
 
         //Mostrar status do carro kilimetragem...
@@ -86,7 +92,7 @@ public class HomeFragment extends Fragment {
                                 //System.out.println("MODELO CARRO: "+dado);
                                 //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
                                 Integer km = ((GetVehicleDataResponse) response).getOdometer();
-                                txtKm.setText("KM atual: " + km);
+                                //txtKm.setText("KM atual: " + km);
                                 txtStatus.setText("PRNDL Status: "+ prndl.toString());
                             }else{
                                 Log.i("SdlService", "GetVehicleData was rejected.");
@@ -113,7 +119,6 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.replace(R.id.frame_layout, new CheckFragment());
                 fragmentTransaction.commit();*/
                 Intent intent = new Intent(v.getContext(), CheckActivity.class);
-
                 startActivity(intent);
             }
         });
@@ -137,4 +142,11 @@ public class HomeFragment extends Fragment {
         super.onResume();
     }
 
+    private String formatarQuilometragem(float quilometragem) {
+        NumberFormat formatador = NumberFormat.getNumberInstance(new Locale( "pt", "BR" ));
+        formatador.setMinimumFractionDigits(2);
+        formatador.setMaximumFractionDigits(2);
+
+        return formatador.format(quilometragem);
+    }
 }

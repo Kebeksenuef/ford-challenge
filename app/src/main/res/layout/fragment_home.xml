@@ -8,35 +8,34 @@
         android:id="@+id/txtKm"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="140dp"
         android:layout_gravity="center_horizontal"
-        android:text="TextView"
+        android:textColor="@color/white"
         android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Sua próxima revisção será em: "
+        android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"/>
 
     <Button
         android:id="@+id/btnMostrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="170dp"
         android:layout_gravity="center_horizontal"
         android:text="Mostrar">
     </Button>
 
-    <Button
-        android:id="@+id/btnVerificar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp"
-        android:text="Verficar itens da revisão" />
-
-    <Button
-        android:id="@+id/btnNotificar"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Notificar manutenção"
-        android:layout_gravity="center"
-        android:layout_marginTop="120dp"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="210dp"
+        android:src="@drawable/ecosport"
+        android:layout_marginTop="230dp"
         />
 
     <TextView
@@ -45,9 +44,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left|center_vertical"
         android:layout_marginLeft="30dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="-110dp"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/btnVerificar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="180dp"
+        android:text="Verficar itens da revisão" />
 
+    <Button
+        android:id="@+id/btnNotificar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Notificar manutenção"
+        android:layout_gravity="center"
+        android:layout_marginTop="230dp"
+        />
 
 </FrameLayout>

@@ -31,9 +31,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int TIME_INTERNAL = 2000;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
+    public static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        active = true;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolBar);
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.frame_layout, fragment, "Home");
         fragmentTransaction.commit();
+
     }
 
     @Override
@@ -67,10 +72,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
 
         if(id == R.id.home){
+
+            Intent intent = new Intent(getApplicationContext(), CheckActivity.class);
+            startActivity(intent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
             HomeFragment fragment = new HomeFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Home");
             fragmentTransaction.commit();
+
         }else if(id == R.id.consecionárias){
             ConseFragment fragment = new ConseFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -98,6 +109,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }else{
             super.onBackPressed();
         }
+    }
+
+    public void OnStart(){
+        super.onStart();
+        active = true;
+    }
+
+    public void OnStop(){
+        super.onStop();
+        active = false;
     }
 
     public void onResume(){
