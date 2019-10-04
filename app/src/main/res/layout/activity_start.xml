@@ -5,14 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.Start"
-    android:background="@color/white">
+    android:background="@color/blueWithShade"
+>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:src="@drawable/logoford"
+        android:layout_marginTop="90dp"
+        />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:src="@drawable/mustangbranco"
+        android:layout_marginTop="100sp"
+        />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="222dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:background="@color/white"/>
 
 </RelativeLayout>

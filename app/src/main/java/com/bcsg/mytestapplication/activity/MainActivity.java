@@ -72,11 +72,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
 
         if(id == R.id.home){
-
-            Intent intent = new Intent(getApplicationContext(), CheckActivity.class);
+            /*Intent intent = new Intent(getApplicationContext(), CheckActivity.class);
             startActivity(intent);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);*/
             HomeFragment fragment = new HomeFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Home");

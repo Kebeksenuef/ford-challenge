@@ -7,17 +7,18 @@ import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bcsg.mytestapplication.adapter.RecycleAdapter;
+import com.bcsg.mytestapplication.adapter.ItensManutencaoAdapter;
 import com.bcsg.mytestapplication.dto.ItemRevisao;
+import com.bcsg.mytestapplication.dto.Modelo;
 
 import java.util.List;
 
-public class TarefaConsultarItens extends AsyncTask<Void, Void, List<ItemRevisao>> {
+public class TarefaFragmentItens extends AsyncTask<Void, Void, List<Modelo>> {
 
     private Context context;
     private RecyclerView recyclerView;
 
-    public TarefaConsultarItens(Context context, RecyclerView recyclerView) {
+    public TarefaFragmentItens(Context context, RecyclerView recyclerView) {
         super();
         this.context = context;
         this.recyclerView = recyclerView;
@@ -29,22 +30,19 @@ public class TarefaConsultarItens extends AsyncTask<Void, Void, List<ItemRevisao
     }
 
     @Override
-    protected List<ItemRevisao> doInBackground(Void... voids) {
+    protected List<Modelo> doInBackground(Void... voids) {
         Log.i("TarefaConsultarItens", "Consultando modelos... Thread: " + Thread.currentThread().getName());
-
-        List<ItemRevisao> entidades = AzureConnection.consutlarItens();
-
+        List<Modelo> entidades = AzureConnection.consultarModelos();
         return entidades;
     }
 
     @Override
-    protected void onPostExecute(List<ItemRevisao> itens) {
+    protected void onPostExecute(List<Modelo> itens) {
         Log.i("TarefaConsultarItens", "Post Execute - Thread: " + Thread.currentThread().getName());
 
         if (this.recyclerView != null) {
             LinearLayoutManager llm =  new LinearLayoutManager(this.context);
-            RecycleAdapter adapter = new RecycleAdapter(itens);
-
+            ItensManutencaoAdapter adapter = new ItensManutencaoAdapter(itens);
             this.recyclerView.setHasFixedSize(true);
             this.recyclerView.setLayoutManager(llm);
             this.recyclerView.setAdapter(adapter);

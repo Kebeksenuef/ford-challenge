@@ -8,4 +8,5 @@
     <color name="blueWithTint">#42A1D2</color>
     <color name="blueWithShade">#2884B4</color>
     <color name="blue">#2D96CD</color>
+    <color name="black">#000000</color>
 </resources>

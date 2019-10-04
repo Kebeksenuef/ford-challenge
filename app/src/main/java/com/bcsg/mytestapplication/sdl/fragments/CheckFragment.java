@@ -18,6 +18,7 @@ import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.adapter.RecycleAdapter;
 import com.bcsg.mytestapplication.dao.AzureConnection;
 import com.bcsg.mytestapplication.dao.TarefaConsultarItens;
+import com.bcsg.mytestapplication.dao.TarefaFragmentItens;
 import com.bcsg.mytestapplication.dto.ItemRevisao;
 import com.bcsg.mytestapplication.dto.Modelo;
 
@@ -38,10 +39,10 @@ public class CheckFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_check, container, false);
 
         Context context = view.getContext();
-        RecyclerView recyclerView = view.findViewById(R.id.recycle_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycle_view_itens_frag);
 
-        TarefaConsultarItens tarefaConsultarItens = new TarefaConsultarItens(context, recyclerView);
-        tarefaConsultarItens.execute();
+        TarefaFragmentItens tarefaFragmentItens = new TarefaFragmentItens(context, recyclerView);
+        tarefaFragmentItens.execute();
 
         // Inflate the layout for this fragment
         return view;

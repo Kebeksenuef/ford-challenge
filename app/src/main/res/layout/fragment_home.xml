@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:text="Sua próxima revisção será em: "
+        android:text="Sua próxima revisão será em: "
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"/>

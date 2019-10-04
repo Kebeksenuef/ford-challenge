@@ -85,14 +85,13 @@ public class HomeFragment extends Fragment {
                             Log.i(TAG,"Houve uma resposta RPC!");
                             if(response.getSuccess()){
                                 PRNDL prndl = ((GetVehicleDataResponse) response).getPrndl();
-
                                 //TelematicsCollector tc = new TelematicsCollector();
                                 //txtKm.setText("Modelo CARRO: "+tc.getVehicleType().getModel());
                                 //txtKm.setText("MODELO: CARRO: "+dado);
                                 //System.out.println("MODELO CARRO: "+dado);
                                 //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
                                 Integer km = ((GetVehicleDataResponse) response).getOdometer();
-                                //txtKm.setText("KM atual: " + km);
+                                txtKm.setText("KM atual: " + km);
                                 txtStatus.setText("PRNDL Status: "+ prndl.toString());
                             }else{
                                 Log.i("SdlService", "GetVehicleData was rejected.");
@@ -113,13 +112,13 @@ public class HomeFragment extends Fragment {
         btnVerificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*CheckFragment fragment = new CheckFragment();
+                NotifyFragment fragment = new NotifyFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new CheckFragment());
-                fragmentTransaction.commit();*/
-                Intent intent = new Intent(v.getContext(), CheckActivity.class);
-                startActivity(intent);
+                fragmentTransaction.replace(R.id.frame_layout, new NotifyFragment());
+                fragmentTransaction.commit();
+                //Intent intent = new Intent(v.getContext(), CheckActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -129,11 +128,10 @@ public class HomeFragment extends Fragment {
                 CheckFragment fragment = new CheckFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new NotifyFragment());
+                fragmentTransaction.replace(R.id.frame_layout, new CheckFragment());
                 fragmentTransaction.commit();
             }
         });
-
         return view;
     }
 
