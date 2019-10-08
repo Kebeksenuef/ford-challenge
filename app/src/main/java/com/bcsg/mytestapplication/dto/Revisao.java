@@ -1,17 +1,19 @@
 package com.bcsg.mytestapplication.dto;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Revisao {
     private int codigo;
+    private int codigoModelo;
     private String descricao;
-    private String codigoVeiculo;
-    private LocalDateTime agendamento;
-    private LocalDateTime inicio;
-    private LocalDateTime termino;
+    private int prazoMeses;
+    private int limiteQuilometragem;
+    private float valorVista;
+    private float valorParcela;
+    private int quantidadeParcelas;
+    private boolean realizada;
     private List<ItemRevisao> itens;
 
     public Revisao() {
@@ -27,12 +29,19 @@ public class Revisao {
     }
 
     public int getCodigo() {
-
         return codigo;
     }
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public int getCodigoModelo() {
+        return codigoModelo;
+    }
+
+    public void setCodigoModelo(int codigoModelo) {
+        this.codigoModelo = codigoModelo;
     }
 
     public String getDescricao() {
@@ -43,36 +52,52 @@ public class Revisao {
         this.descricao = descricao;
     }
 
-    public String getCodigoVeiculo() {
-        return codigoVeiculo;
+    public int getPrazoMeses() {
+        return prazoMeses;
     }
 
-    public void setCodigoVeiculo(String codigoVeiculo) {
-        this.codigoVeiculo = codigoVeiculo;
+    public void setPrazoMeses(int prazoMeses) {
+        this.prazoMeses = prazoMeses;
     }
 
-    public LocalDateTime getAgendamento() {
-        return agendamento;
+    public int getLimiteQuilometragem() {
+        return limiteQuilometragem;
     }
 
-    public void setAgendamento(LocalDateTime agendamento) {
-        this.agendamento = agendamento;
+    public void setLimiteQuilometragem(int limiteQuilometragem) {
+        this.limiteQuilometragem = limiteQuilometragem;
     }
 
-    public LocalDateTime getInicio() {
-        return inicio;
+    public float getValorVista() {
+        return valorVista;
     }
 
-    public void setInicio(LocalDateTime inicio) {
-        this.inicio = inicio;
+    public void setValorVista(float valorVista) {
+        this.valorVista = valorVista;
     }
 
-    public LocalDateTime getTermino() {
-        return termino;
+    public float getValorParcela() {
+        return valorParcela;
     }
 
-    public void setTermino(LocalDateTime termino) {
-        this.termino = termino;
+    public void setValorParcela(float valorParcela) {
+        this.valorParcela = valorParcela;
+    }
+
+    public int getQuantidadeParcelas() {
+        return quantidadeParcelas;
+    }
+
+    public void setQuantidadeParcelas(int quantidadeParcelas) {
+        this.quantidadeParcelas = quantidadeParcelas;
+    }
+
+    public boolean getRealizada() {
+        return realizada;
+    }
+
+    public void setRealizada(boolean realizada) {
+        this.realizada = realizada;
     }
 
     public List<ItemRevisao> getItens() {

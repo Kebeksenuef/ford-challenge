@@ -24,12 +24,22 @@ public class AzureConnection {
     private static final String CONNECTION_STRING = "jdbc:jtds:sqlserver://%s:1433/%s;user=%s;password=%s;encrypt=true;trustServerCertificate=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static final String QUERY_CONSULTA_MODELOS = "SELECT [CODIGO],[NOME] FROM [dbo].[MODELO]";
     private static final String QUERY_CONSULTA_ITENS = "SELECT [CODIGO],[DESCRICAO],[PRECO] FROM [dbo].[ITEM]";
-    private static final String QUERY_CONSULTA_REVISOES = "SELECT R.[CODIGO] AS CODIGO_REVISAO,R.[DESCRICAO],R.[CODIGO_VEICULO],R.[DATA_HORA_AGENDA],R.[DATA_HORA_INICIO],R.[DATA_HORA_FIM], I.[CODIGO] AS CODIGO_ITEM, I.[DESCRICAO] as DESCRICAO_ITEM, I.[PRECO] AS PRECO_ITEM, IR.[QUANTIDADE] AS QUANTIDADE_ITEM\n" +
-            "FROM [dbo].[REVISAO] R\n" +
-            "INNER JOIN [dbo].[ITEM_REVISAO] IR ON IR.CODIGO_REVISAO = R.CODIGO\n" +
-            "INNER JOIN [dbo].[ITEM] I ON I.CODIGO = IR.CODIGO_ITEM\n" +
-            "WHERE R.[CODIGO_VEICULO] = ?\n" +
-            "ORDER BY CODIGO_REVISAO;";
+    private static final String QUERY_CONSULTA_ITENS_POR_REVISAO = "SELECT I.*\n" +
+            "FROM REVISAO R\n" +
+            "\tINNER JOIN ITEM_REVISAO IR ON IR.CODIGO_REVISAO = R.CODIGO\n" +
+            "\tINNER JOIN ITEM I ON I.CODIGO = IR.CODIGO_ITEM\n" +
+            "WHERE R.CODIGO = ?;";
+    private static final String QUERY_CONSULTA_PROXIMA_REVISAO = "SELECT TOP 1 R.*\n" +
+            "FROM REVISAO R\n" +
+            "\tLEFT JOIN VEICULO_REVISAO VR ON VR.CODIGO_REVISAO = R.CODIGO AND VR.CODIGO_VEICULO = ?\n" +
+            "WHERE VR.CODIGO_REVISAO IS NULL\n" +
+            "\tAND R.CODIGO_MODELO = ?\n" +
+            "ORDER BY R.LIMITE_QUILOMETRAGEM;\n";
+    private static final String QUERY_CONSULTA_REVISOES_POR_VEICULO = "SELECT R.*, CASE WHEN (VR.CODIGO_REVISAO IS NULL) THEN 'N' ELSE 'S' END AS INDICADOR_REVISAO_REALIZADA\n" +
+            "FROM REVISAO R\n" +
+            "\tLEFT JOIN VEICULO_REVISAO VR ON VR.CODIGO_REVISAO = R.CODIGO AND VR.CODIGO_VEICULO = ?\n" +
+            "WHERE R.CODIGO_MODELO = ?\n" +
+            "ORDER BY R.LIMITE_QUILOMETRAGEM;";
 
     private static final String TAG = "CONEXÃO";
 
@@ -68,7 +78,7 @@ public class AzureConnection {
         return modelos;
     }
 
-    public static List<ItemRevisao> consutlarItens() {
+    public static List<ItemRevisao> consultarItens() {
         List<ItemRevisao> itens = new ArrayList<>();
 
         try (Connection conexao = getConnection()) {
@@ -89,41 +99,87 @@ public class AzureConnection {
         return itens;
     }
 
-    public static List<Revisao> consutlarRevisoes(String codigoVeiculo) {
-        List<Revisao> revisoes = new ArrayList<>();
+    public static List<ItemRevisao> consultarItens(int codigoRevisao) {
+        List<ItemRevisao> itens = new ArrayList<>();
 
         try (Connection conexao = getConnection()) {
-            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_REVISOES);
-            comando.setString(1, codigoVeiculo);
+            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_ITENS_POR_REVISAO);
+            comando.setInt(1, codigoRevisao);
 
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int indice = -1;
-                Revisao revisao = new Revisao(resultado.getInt("CODIGO_REVISAO"));
-                ItemRevisao item = new ItemRevisao();
+                ItemRevisao item = new ItemRevisao(resultado.getInt("CODIGO"), resultado.getString("DESCRICAO"), resultado.getFloat("PRECO"));
 
-                item.setCodigo(resultado.getInt("CODIGO_ITEM"));
-                item.setDescricao(resultado.getString("DESCRICAO_ITEM"));
-                item.setPreco(resultado.getFloat("PRECO_ITEM"));
-                item.setQuantidade(resultado.getInt("QUANTIDADE_ITEM"));
+                itens.add(item);
+            }
 
-                indice = revisoes.indexOf(revisao);
+            comando.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-                if (indice > -1) {
-                    revisao = revisoes.get(indice);
-                } else {
-                    revisao.setDescricao(resultado.getString("DESCRICAO"));
-                    revisao.setCodigoVeiculo(resultado.getString("CODIGO_VEICULO"));
+        return itens;
+    }
 
-                    revisoes.add(revisao);
-                }
-                revisao.getItens().add(item);
+    public static Revisao consultarProximaRevisao(String codigoVeiculo, int codigoModelo) {
+        Revisao revisao = null;
+
+        try (Connection conexao = getConnection()) {
+            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_PROXIMA_REVISAO);
+            comando.setString(1, codigoVeiculo);
+            comando.setInt(2, codigoModelo);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                revisao = new Revisao();
+                revisao.setCodigo(resultado.getInt("CODIGO"));
+                revisao.setCodigoModelo(resultado.getInt("CODIGO_MODELO"));
+                revisao.setDescricao(resultado.getString("DESCRICAO"));
+                revisao.setPrazoMeses(resultado.getInt("PRAZO_MESES"));
+                revisao.setLimiteQuilometragem(resultado.getInt("LIMITE_QUILOMETRAGEM"));
+                revisao.setValorVista(resultado.getFloat("VALOR_VISTA"));
+                revisao.setValorParcela(resultado.getFloat("VALOR_PARCELA"));
+                revisao.setQuantidadeParcelas(resultado.getInt("QUANTIDADE_PARCELAS"));
+                revisao.setItens(consultarItens(revisao.getCodigo()));
             }
             comando.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return revisoes;
+
+        return revisao;
+    }
+
+    public static Revisao consultarRevisoes(String codigoVeiculo, int codigoModelo) {
+        Revisao revisao = null;
+
+        try (Connection conexao = getConnection()) {
+            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_REVISOES_POR_VEICULO);
+            comando.setString(1, codigoVeiculo);
+            comando.setInt(2, codigoModelo);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                revisao = new Revisao();
+                revisao.setCodigo(resultado.getInt("CODIGO"));
+                revisao.setCodigoModelo(resultado.getInt("CODIGO_MODELO"));
+                revisao.setDescricao(resultado.getString("DESCRICAO"));
+                revisao.setPrazoMeses(resultado.getInt("PRAZO_MESES"));
+                revisao.setLimiteQuilometragem(resultado.getInt("LIMITE_QUILOMETRAGEM"));
+                revisao.setValorVista(resultado.getFloat("VALOR_VISTA"));
+                revisao.setValorParcela(resultado.getFloat("VALOR_PARCELA"));
+                revisao.setQuantidadeParcelas(resultado.getInt("QUANTIDADE_PARCELAS"));
+                revisao.setRealizada("S".equals(resultado.getString("INDICADOR_REVISAO_REALIZADA")));
+                revisao.setItens(consultarItens(revisao.getCodigo()));
+            }
+            comando.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return revisao;
     }
 }
