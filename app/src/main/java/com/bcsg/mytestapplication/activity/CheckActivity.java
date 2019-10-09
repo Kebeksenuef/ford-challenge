@@ -4,10 +4,7 @@ package com.bcsg.mytestapplication.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,16 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.dao.TarefaConsultarItens;
-import com.bcsg.mytestapplication.sdl.fragments.ConseFragment;
-import com.bcsg.mytestapplication.sdl.fragments.HomeFragment;
-import com.bcsg.mytestapplication.sdl.fragments.LogoutFragment;
-import com.bcsg.mytestapplication.sdl.fragments.SettingFragment;
+import com.bcsg.mytestapplication.fragments.ConseFragment;
+import com.bcsg.mytestapplication.fragments.HomeFragment;
+import com.bcsg.mytestapplication.fragments.LogoutFragment;
+import com.bcsg.mytestapplication.fragments.SettingFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class CheckActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener{

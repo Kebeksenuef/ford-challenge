@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -16,10 +15,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bcsg.mytestapplication.BuildConfig;
 import com.bcsg.mytestapplication.R;
-import com.bcsg.mytestapplication.sdl.fragments.ConseFragment;
-import com.bcsg.mytestapplication.sdl.fragments.HomeFragment;
-import com.bcsg.mytestapplication.sdl.fragments.LogoutFragment;
-import com.bcsg.mytestapplication.sdl.fragments.SettingFragment;
+import com.bcsg.mytestapplication.fragments.ConseFragment;
+import com.bcsg.mytestapplication.fragments.HomeFragment;
+import com.bcsg.mytestapplication.fragments.LogoutFragment;
+import com.bcsg.mytestapplication.fragments.RevisionFragment;
+import com.bcsg.mytestapplication.fragments.SettingFragment;
 import com.bcsg.mytestapplication.sdl.sdl.SdlReceiver;
 import com.bcsg.mytestapplication.sdl.sdl.SdlService;
 import com.google.android.material.navigation.NavigationView;
@@ -79,11 +79,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Home");
             fragmentTransaction.commit();
-
-        }else if(id == R.id.consecionárias){
+        }else if(id == R.id.consecionárias) {
             ConseFragment fragment = new ConseFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Consecionárias");
+            fragmentTransaction.commit();
+        }else if(id == R.id.revisões) {
+            RevisionFragment fragment = new RevisionFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame_layout, fragment, "Revisões");
             fragmentTransaction.commit();
         }else if (id == R.id.setting){
             SettingFragment fragment = new SettingFragment();
@@ -113,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onStart();
         active = true;
     }
-
     public void OnStop(){
         super.onStop();
         active = false;

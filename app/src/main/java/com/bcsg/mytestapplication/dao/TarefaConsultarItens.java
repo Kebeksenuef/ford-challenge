@@ -32,7 +32,7 @@ public class TarefaConsultarItens extends AsyncTask<Void, Void, List<ItemRevisao
     protected List<ItemRevisao> doInBackground(Void... voids) {
         Log.i("TarefaConsultarItens", "Consultando modelos... Thread: " + Thread.currentThread().getName());
 
-        List<ItemRevisao> entidades = AzureConnection.consutlarItens();
+        List<ItemRevisao> entidades = AzureConnection.consultarItens();
 
         return entidades;
     }

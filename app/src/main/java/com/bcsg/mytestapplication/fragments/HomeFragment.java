@@ -1,8 +1,7 @@
-package com.bcsg.mytestapplication.sdl.fragments;
+package com.bcsg.mytestapplication.fragments;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,13 +18,9 @@ import android.widget.Toast;
 
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.TelematicsCollector;
-import com.bcsg.mytestapplication.activity.CheckActivity;
-import com.bcsg.mytestapplication.activity.MainActivity;
-import com.bcsg.mytestapplication.dao.AzureConnection;
 import com.bcsg.mytestapplication.sdl.globalvariables.Config;
 import com.smartdevicelink.proxy.RPCResponse;
 import com.smartdevicelink.proxy.rpc.GetVehicleDataResponse;
-import com.smartdevicelink.proxy.rpc.VehicleType;
 import com.smartdevicelink.proxy.rpc.enums.PRNDL;
 import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;

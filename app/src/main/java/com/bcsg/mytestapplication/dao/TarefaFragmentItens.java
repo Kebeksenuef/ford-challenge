@@ -13,7 +13,7 @@ import com.bcsg.mytestapplication.dto.Modelo;
 
 import java.util.List;
 
-public class TarefaFragmentItens extends AsyncTask<Void, Void, List<Modelo>> {
+public class TarefaFragmentItens extends AsyncTask<Void, Void, List<ItemRevisao>> {
 
     private Context context;
     private RecyclerView recyclerView;
@@ -30,14 +30,14 @@ public class TarefaFragmentItens extends AsyncTask<Void, Void, List<Modelo>> {
     }
 
     @Override
-    protected List<Modelo> doInBackground(Void... voids) {
+    protected List<ItemRevisao> doInBackground(Void... voids) {
         Log.i("TarefaConsultarItens", "Consultando modelos... Thread: " + Thread.currentThread().getName());
-        List<Modelo> entidades = AzureConnection.consultarModelos();
+        List<ItemRevisao> entidades = AzureConnection.consultarItens();
         return entidades;
     }
 
     @Override
-    protected void onPostExecute(List<Modelo> itens) {
+    protected void onPostExecute(List<ItemRevisao> itens) {
         Log.i("TarefaConsultarItens", "Post Execute - Thread: " + Thread.currentThread().getName());
 
         if (this.recyclerView != null) {

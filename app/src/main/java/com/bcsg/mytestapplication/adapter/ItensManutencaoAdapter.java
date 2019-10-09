@@ -19,9 +19,9 @@ import java.util.List;
 
 public class ItensManutencaoAdapter extends RecyclerView.Adapter<ItensManutencaoAdapter.PersonViewHolder> {
 
-    List<Modelo> itensRevisao;
+    List<ItemRevisao> itensRevisao;
 
-    public ItensManutencaoAdapter(List<Modelo> itensRevisao){
+    public ItensManutencaoAdapter(List<ItemRevisao> itensRevisao){
         this.itensRevisao = itensRevisao;
         if (this.itensRevisao == null){
             this.itensRevisao = new ArrayList<>();
@@ -39,7 +39,7 @@ public class ItensManutencaoAdapter extends RecyclerView.Adapter<ItensManutencao
     @Override
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
         holder.cb.setChecked(false);
-        holder.item.setText(itensRevisao.get(position).getNome());
+        holder.item.setText(itensRevisao.get(position).getDescricao());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication.sdl.fragments;
+package com.bcsg.mytestapplication.fragments;
 
 
 import android.content.Context;
@@ -26,7 +26,6 @@ public class RevisionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_revision, container, false);
 
         Context context = getContext();
-
 
         // Inflate the layout for this fragment
         return view;

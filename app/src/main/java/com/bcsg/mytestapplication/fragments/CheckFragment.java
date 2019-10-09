@@ -1,29 +1,17 @@
-package com.bcsg.mytestapplication.sdl.fragments;
+package com.bcsg.mytestapplication.fragments;
 
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bcsg.mytestapplication.R;
-import com.bcsg.mytestapplication.adapter.RecycleAdapter;
-import com.bcsg.mytestapplication.dao.AzureConnection;
-import com.bcsg.mytestapplication.dao.TarefaConsultarItens;
 import com.bcsg.mytestapplication.dao.TarefaFragmentItens;
-import com.bcsg.mytestapplication.dto.ItemRevisao;
-import com.bcsg.mytestapplication.dto.Modelo;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.

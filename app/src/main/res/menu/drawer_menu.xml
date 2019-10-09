@@ -14,6 +14,11 @@
             android:title="Consecionárias"
             android:icon="@drawable/ic_action_conse"
             />
+        <item
+            android:id="@+id/revisões"
+            android:title="Revisões"
+            android:icon="@drawable/ic_revision"
+            />
     </group>
 
     <item android:title="Controls">

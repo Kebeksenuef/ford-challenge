@@ -1,4 +1,4 @@
-package com.bcsg.mytestapplication.sdl.fragments;
+package com.bcsg.mytestapplication.fragments;
 
 
 import android.content.Context;
