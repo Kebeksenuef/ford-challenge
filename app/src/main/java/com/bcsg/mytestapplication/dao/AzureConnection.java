@@ -122,6 +122,11 @@ public class AzureConnection {
 
     public static Revisao consultarProximaRevisao(String codigoVeiculo, int codigoModelo) {
         Revisao revisao = null;
+<<<<<<< HEAD
+
+        try (Connection conexao = getConnection()) {
+            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_PROXIMA_REVISAO);
+=======
 
         try (Connection conexao = getConnection()) {
             PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_PROXIMA_REVISAO);
@@ -155,6 +160,42 @@ public class AzureConnection {
 
         try (Connection conexao = getConnection()) {
             PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_REVISOES_POR_VEICULO);
+>>>>>>> 374bfa4e6a5fb3ce1d4ddf6dfbfaebbf54f06353
+            comando.setString(1, codigoVeiculo);
+            comando.setInt(2, codigoModelo);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                revisao = new Revisao();
+                revisao.setCodigo(resultado.getInt("CODIGO"));
+                revisao.setCodigoModelo(resultado.getInt("CODIGO_MODELO"));
+                revisao.setDescricao(resultado.getString("DESCRICAO"));
+                revisao.setPrazoMeses(resultado.getInt("PRAZO_MESES"));
+                revisao.setLimiteQuilometragem(resultado.getInt("LIMITE_QUILOMETRAGEM"));
+                revisao.setValorVista(resultado.getFloat("VALOR_VISTA"));
+                revisao.setValorParcela(resultado.getFloat("VALOR_PARCELA"));
+                revisao.setQuantidadeParcelas(resultado.getInt("QUANTIDADE_PARCELAS"));
+<<<<<<< HEAD
+=======
+                revisao.setRealizada("S".equals(resultado.getString("INDICADOR_REVISAO_REALIZADA")));
+>>>>>>> 374bfa4e6a5fb3ce1d4ddf6dfbfaebbf54f06353
+                revisao.setItens(consultarItens(revisao.getCodigo()));
+            }
+            comando.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return revisao;
+<<<<<<< HEAD
+    }
+
+    public static Revisao consultarRevisoes(String codigoVeiculo, int codigoModelo) {
+        Revisao revisao = null;
+
+        try (Connection conexao = getConnection()) {
+            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_REVISOES_POR_VEICULO);
             comando.setString(1, codigoVeiculo);
             comando.setInt(2, codigoModelo);
 
@@ -179,5 +220,7 @@ public class AzureConnection {
         }
 
         return revisao;
+=======
+>>>>>>> 374bfa4e6a5fb3ce1d4ddf6dfbfaebbf54f06353
     }
 }
