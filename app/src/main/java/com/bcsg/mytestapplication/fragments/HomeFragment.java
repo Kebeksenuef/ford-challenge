@@ -3,11 +3,6 @@ package com.bcsg.mytestapplication.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.bcsg.mytestapplication.AppSession;
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.TelematicsCollector;
 import com.bcsg.mytestapplication.sdl.globalvariables.Config;
@@ -27,7 +28,6 @@ import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
 
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * A fragment with a Google +1 button.
@@ -61,9 +61,26 @@ public class HomeFragment extends Fragment {
         txtStatus = (TextView) view.findViewById(R.id.txtStatus);
         txtKm = (TextView) view.findViewById(R.id.txtKm);
 
-        txtKm.setText(String.format("%s Km", formatarQuilometragem(new Random().nextFloat() * 100000)));
+        txtKm.setText(String.format("%s Km", formatarQuilometragem(AppSession.getModelo().getMockInfo().getQuilometragem())));
 
         final Activity activity = getActivity();
+
+        AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);
+
+        switch (AppSession.getModelo().getMockInfo()) {
+            case FOCUS:
+                imagemModelo.setImageResource(R.drawable.focus);
+                break;
+            case ECOSPORT:
+                imagemModelo.setImageResource(R.drawable.ecosport);
+                break;
+            case FUSION:
+                break;
+            case KA:
+                break;
+            case FIESTA:
+                break;
+        }
 
         //Mostrar status do carro kilimetragem...
         btnMostrar.setOnClickListener(new View.OnClickListener() {

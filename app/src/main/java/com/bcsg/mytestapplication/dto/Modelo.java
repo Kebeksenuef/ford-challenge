@@ -3,6 +3,7 @@ package com.bcsg.mytestapplication.dto;
 public class Modelo {
     private int codigo;
     private String nome;
+    private EnumMockInfoVeiculo mockInfo;
 
     public Modelo() {
         super();
@@ -29,5 +30,18 @@ public class Modelo {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public EnumMockInfoVeiculo getMockInfo() {
+        return mockInfo;
+    }
+
+    public void setMockInfo(EnumMockInfoVeiculo mockInfo) {
+        this.mockInfo = mockInfo;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

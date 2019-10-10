@@ -120,17 +120,12 @@ public class AzureConnection {
         return itens;
     }
 
-    public static Revisao consultarProximaRevisao(String codigoVeiculo, int codigoModelo) {
+    public static Revisao consultarProximaRevisao(String chassi, int codigoModelo) {
         Revisao revisao = null;
-<<<<<<< HEAD
 
         try (Connection conexao = getConnection()) {
             PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_PROXIMA_REVISAO);
-=======
-
-        try (Connection conexao = getConnection()) {
-            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_PROXIMA_REVISAO);
-            comando.setString(1, codigoVeiculo);
+            comando.setString(1, chassi);
             comando.setInt(2, codigoModelo);
 
             ResultSet resultado = comando.executeQuery();
@@ -155,44 +150,8 @@ public class AzureConnection {
         return revisao;
     }
 
-    public static Revisao consultarRevisoes(String codigoVeiculo, int codigoModelo) {
-        Revisao revisao = null;
-
-        try (Connection conexao = getConnection()) {
-            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_REVISOES_POR_VEICULO);
->>>>>>> 374bfa4e6a5fb3ce1d4ddf6dfbfaebbf54f06353
-            comando.setString(1, codigoVeiculo);
-            comando.setInt(2, codigoModelo);
-
-            ResultSet resultado = comando.executeQuery();
-
-            while (resultado.next()) {
-                revisao = new Revisao();
-                revisao.setCodigo(resultado.getInt("CODIGO"));
-                revisao.setCodigoModelo(resultado.getInt("CODIGO_MODELO"));
-                revisao.setDescricao(resultado.getString("DESCRICAO"));
-                revisao.setPrazoMeses(resultado.getInt("PRAZO_MESES"));
-                revisao.setLimiteQuilometragem(resultado.getInt("LIMITE_QUILOMETRAGEM"));
-                revisao.setValorVista(resultado.getFloat("VALOR_VISTA"));
-                revisao.setValorParcela(resultado.getFloat("VALOR_PARCELA"));
-                revisao.setQuantidadeParcelas(resultado.getInt("QUANTIDADE_PARCELAS"));
-<<<<<<< HEAD
-=======
-                revisao.setRealizada("S".equals(resultado.getString("INDICADOR_REVISAO_REALIZADA")));
->>>>>>> 374bfa4e6a5fb3ce1d4ddf6dfbfaebbf54f06353
-                revisao.setItens(consultarItens(revisao.getCodigo()));
-            }
-            comando.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return revisao;
-<<<<<<< HEAD
-    }
-
-    public static Revisao consultarRevisoes(String codigoVeiculo, int codigoModelo) {
-        Revisao revisao = null;
+    public static List<Revisao> consultarRevisoes(String codigoVeiculo, int codigoModelo) {
+        List<Revisao> revisoes = new ArrayList<>();
 
         try (Connection conexao = getConnection()) {
             PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_REVISOES_POR_VEICULO);
@@ -202,7 +161,7 @@ public class AzureConnection {
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                revisao = new Revisao();
+                Revisao revisao = new Revisao();
                 revisao.setCodigo(resultado.getInt("CODIGO"));
                 revisao.setCodigoModelo(resultado.getInt("CODIGO_MODELO"));
                 revisao.setDescricao(resultado.getString("DESCRICAO"));
@@ -213,14 +172,14 @@ public class AzureConnection {
                 revisao.setQuantidadeParcelas(resultado.getInt("QUANTIDADE_PARCELAS"));
                 revisao.setRealizada("S".equals(resultado.getString("INDICADOR_REVISAO_REALIZADA")));
                 revisao.setItens(consultarItens(revisao.getCodigo()));
+
+                revisoes.add(revisao);
             }
             comando.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return revisao;
-=======
->>>>>>> 374bfa4e6a5fb3ce1d4ddf6dfbfaebbf54f06353
+        return revisoes;
     }
 }

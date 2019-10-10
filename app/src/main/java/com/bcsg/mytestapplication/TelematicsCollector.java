@@ -120,5 +120,4 @@ public class TelematicsCollector {
         return String.valueOf(Log.i(TAG,"VERSÃO SDL: "+
                 registerAppInterfaceResponse.getSdlVersion()));
     }
-
 }

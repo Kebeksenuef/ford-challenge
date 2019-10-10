@@ -10,7 +10,7 @@ import com.bcsg.mytestapplication.dto.Modelo;
 
 import java.util.List;
 
-public class TarefaConsultarModelos extends AsyncTask<Void, Void, String[]> {
+public class TarefaConsultarModelos extends AsyncTask<Void, Void, Modelo[]> {
 
     private Context context;
     private Spinner spinner;
@@ -28,21 +28,21 @@ public class TarefaConsultarModelos extends AsyncTask<Void, Void, String[]> {
     }
 
     @Override
-    protected String[] doInBackground(Void... voids) {
+    protected Modelo[] doInBackground(Void... voids) {
         Log.i("TarefaConsultarModelo", "Consultando modelos... Thread: " + Thread.currentThread().getName());
 
         List<Modelo> entidades = AzureConnection.consultarModelos();
-        String[] modelos = entidades.stream().map(x -> x.getNome()).toArray(String[]::new);
+        Modelo[] modelos = entidades.stream().toArray(Modelo[]::new);
 
         return modelos;
     }
 
     @Override
-    protected void onPostExecute(String[] modelos) {
+    protected void onPostExecute(Modelo[] modelos) {
         Log.i("TarefaConsultarModelo", "Post Execute - Thread: " + Thread.currentThread().getName());
 
         if (this.spinner != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.context, android.R.layout.simple_spinner_dropdown_item, modelos);
+            ArrayAdapter<Modelo> adapter = new ArrayAdapter<>(this.context, android.R.layout.simple_spinner_dropdown_item, modelos);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             this.spinner.setAdapter(adapter);
