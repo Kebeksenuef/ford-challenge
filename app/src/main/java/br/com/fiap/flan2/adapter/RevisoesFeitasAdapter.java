@@ -36,8 +36,15 @@ public class RevisoesFeitasAdapter extends RecyclerView.Adapter<RevisoesFeitasAd
 
     @Override
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
-        holder.txtRevisao.setText(revisoes.get(position).getDescricao());
-        holder.imageView.setImageResource(R.drawable.ic_correct);
+        Revisao revisao = revisoes.get(position);
+
+        holder.txtRevisao.setText(revisao.getDescricao());
+
+        if (revisao.getRealizada()) {
+            holder.imageView.setImageResource(R.drawable.ic_correct);
+        } else {
+            holder.imageView.setImageResource(R.drawable.ic_wrong);
+        }
     }
 
     @Override
