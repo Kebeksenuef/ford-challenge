@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp">
+
+            <TextView
+                android:id="@+id/txtRevisaoDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginLeft="5dp"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_revisao"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_correct"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

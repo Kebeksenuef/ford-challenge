@@ -6,7 +6,8 @@ public enum EnumMockInfoVeiculo {
     ECOSPORT("CHASSI-ECO", 5720),
     FUSION("CHASSI-FUSION", 4982),
     KA("CHASSI-KA", 15098),
-    FIESTA("CHASSI-FIESTA", 21412);
+    FIESTA("CHASSI-FIESTA", 21412),
+    SELECIONE("CHASSI-NADA",0);
 
     private String chassi;
     private float quilometragem;
@@ -27,8 +28,9 @@ public enum EnumMockInfoVeiculo {
             return EnumMockInfoVeiculo.KA;
         } else if (modelo.getCodigo() == 5) {
             return EnumMockInfoVeiculo.FIESTA;
+        }else if (modelo.getCodigo() == 6) {
+            return EnumMockInfoVeiculo.SELECIONE;
         }
-
         return null;
     }
 

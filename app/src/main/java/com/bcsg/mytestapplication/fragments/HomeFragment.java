@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,6 +83,43 @@ public class HomeFragment extends Fragment {
                 break;
         }
 
+        imagemModelo.setOnClickListener(new View.OnClickListener() {
+            @Override
+                public void onClick(View v) {
+                    //você só consegue pegar os dados se a conexão com o SYNC for estabelecida pelo SdlService
+                    if (Config.sdlServiceIsActive) {
+                        //exemplo de chamada normal
+                        //TelematicsCollector.getInstance().getVehicleData();
+                        //exemplo de chamada passando o rpcListener como parametro
+                        TelematicsCollector.getInstance().getVehicleData(new OnRPCResponseListener() {
+                            @Override
+                            public void onResponse(int correlationId, RPCResponse response) {
+                                Log.i(TAG,"Houve uma resposta RPC!");
+                                if(response.getSuccess()){
+                                    PRNDL prndl = ((GetVehicleDataResponse) response).getPrndl();
+                                    //TelematicsCollector tc = new TelematicsCollector();
+                                    //txtKm.setText("Modelo CARRO: "+tc.getVehicleType().getModel());
+                                    //txtKm.setText("MODELO: CARRO: "+dado);
+                                    //System.out.println("MODELO CARRO: "+dado);
+                                    //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
+                                    //Integer km = ((GetVehicleDataResponse) response).getOdometer();
+                                    //txtKm.setText("KM atual: " + km);
+                                    txtStatus.setText("PRNDL Status: "+ prndl.toString());
+                                }else{
+                                    Log.i("SdlService", "GetVehicleData was rejected.");
+                                }
+                            }
+                            @Override
+                            public void onError(int correlationId, Result resultCode, String info){
+                                Log.e(TAG, "onError: "+ resultCode+ " | Info: "+ info );
+                            }
+                        });
+                    } else {
+                        Toast.makeText(activity, "Conexão com o SYNC não foi estabelecida", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        });
+
         //Mostrar status do carro kilimetragem...
         btnMostrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,8 +140,8 @@ public class HomeFragment extends Fragment {
                                 //txtKm.setText("MODELO: CARRO: "+dado);
                                 //System.out.println("MODELO CARRO: "+dado);
                                 //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
-                                Integer km = ((GetVehicleDataResponse) response).getOdometer();
-                                txtKm.setText("KM atual: " + km);
+                                //Integer km = ((GetVehicleDataResponse) response).getOdometer();
+                                //txtKm.setText("KM atual: " + km);
                                 txtStatus.setText("PRNDL Status: "+ prndl.toString());
                             }else{
                                 Log.i("SdlService", "GetVehicleData was rejected.");

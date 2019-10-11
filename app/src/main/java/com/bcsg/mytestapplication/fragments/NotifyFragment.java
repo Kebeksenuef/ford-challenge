@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bcsg.mytestapplication.AppSession;
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.dao.TarefaProximaRevisao;
 
@@ -21,7 +23,6 @@ public class NotifyFragment extends Fragment {
 
     private static final String TAG = "NotifyFragment";
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,6 +31,23 @@ public class NotifyFragment extends Fragment {
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.recycle_view_itens);
         TextView textView = view.findViewById(R.id.txtValorRevisao);
+
+        AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);
+
+        switch (AppSession.getModelo().getMockInfo()){
+            case FOCUS:
+                imagemModelo.setImageResource(R.drawable.focus);
+                break;
+            case ECOSPORT:
+                imagemModelo.setImageResource(R.drawable.ecosport);
+                break;
+            case FUSION:
+                break;
+            case KA:
+                break;
+            case FIESTA:
+                break;
+        }
 
         TarefaProximaRevisao tarefaProximaRevisao = new TarefaProximaRevisao(context,recyclerView, textView);
         tarefaProximaRevisao.execute();

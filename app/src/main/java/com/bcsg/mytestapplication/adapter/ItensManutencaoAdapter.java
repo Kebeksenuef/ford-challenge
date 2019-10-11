@@ -7,12 +7,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.dto.ItemRevisao;
-import com.bcsg.mytestapplication.dto.Modelo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +57,6 @@ public class ItensManutencaoAdapter extends RecyclerView.Adapter<ItensManutencao
 
         public PersonViewHolder(@NonNull View itemView) {
             super(itemView);
-            //cv = (CardView) itemView.findViewById(R.id.cv);
             item = (TextView)  itemView.findViewById(R.id.txtItem);
             cb = (CheckBox) itemView.findViewById(R.id.chbx);
         }

@@ -37,7 +37,8 @@ public class TarefaProximaRevisao extends AsyncTask<Void, Void, Revisao> {
     protected Revisao doInBackground(Void... voids) {
         Log.i("TarefaConsultarItens", "Consultando modelos... Thread: " + Thread.currentThread().getName());
 
-        Revisao proximaRevisao = AzureConnection.consultarProximaRevisao(AppSession.getModelo().getMockInfo().getChassi(), AppSession.getModelo().getCodigo());
+        Revisao proximaRevisao = AzureConnection.consultarProximaRevisao(AppSession.getModelo().getMockInfo().getChassi(),
+                AppSession.getModelo().getCodigo());
 
         return proximaRevisao;
     }

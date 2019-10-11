@@ -20,7 +20,7 @@ public class AzureConnection {
     private static final String USERNAME = "fiap-user";
     private static final String PASSWORD = "ChallengeP@$$w0rd";
     private static final String CONNECTION_STRING = "jdbc:jtds:sqlserver://%s:1433/%s;user=%s;password=%s;encrypt=true;trustServerCertificate=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-    private static final String QUERY_CONSULTA_MODELOS = "SELECT [CODIGO],[NOME] FROM [dbo].[MODELO]";
+    private static final String QUERY_CONSULTA_MODELOS = "SELECT [CODIGO],[NOME] FROM [dbo].[MODELO] ORDER BY [NOME] DESC";
     private static final String QUERY_CONSULTA_ITENS = "SELECT [CODIGO],[DESCRICAO],[PRECO] FROM [dbo].[ITEM]";
     private static final String QUERY_CONSULTA_ITENS_POR_REVISAO = "SELECT I.*\n" +
             "FROM REVISAO R\n" +
@@ -150,12 +150,12 @@ public class AzureConnection {
         return revisao;
     }
 
-    public static List<Revisao> consultarRevisoes(String codigoVeiculo, int codigoModelo) {
+    public static List<Revisao> consultarRevisoes(String chassi, int codigoModelo) {
         List<Revisao> revisoes = new ArrayList<>();
 
         try (Connection conexao = getConnection()) {
             PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_REVISOES_POR_VEICULO);
-            comando.setString(1, codigoVeiculo);
+            comando.setString(1, chassi);
             comando.setInt(2, codigoModelo);
 
             ResultSet resultado = comando.executeQuery();

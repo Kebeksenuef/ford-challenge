@@ -18,6 +18,7 @@ import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.fragments.ConseFragment;
 import com.bcsg.mytestapplication.fragments.HomeFragment;
 import com.bcsg.mytestapplication.fragments.LogoutFragment;
+import com.bcsg.mytestapplication.fragments.RevisionFragment;
 import com.bcsg.mytestapplication.fragments.SettingFragment;
 import com.bcsg.mytestapplication.sdl.sdl.SdlReceiver;
 import com.bcsg.mytestapplication.sdl.sdl.SdlService;
@@ -83,11 +84,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Consecionárias");
             fragmentTransaction.commit();
-        /*}else if(id == R.id.revisões) {
+        }else if(id == R.id.revisões) {
             RevisionFragment fragment = new RevisionFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Revisões");
-            fragmentTransaction.commit();*/
+            fragmentTransaction.commit();
         }else if (id == R.id.setting){
             SettingFragment fragment = new SettingFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

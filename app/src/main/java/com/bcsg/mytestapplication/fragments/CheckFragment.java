@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bcsg.mytestapplication.AppSession;
 import com.bcsg.mytestapplication.R;
 import com.bcsg.mytestapplication.dao.TarefaFragmentItens;
 
@@ -28,6 +30,23 @@ public class CheckFragment extends Fragment {
 
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.recycle_view_itens_frag);
+
+        AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);
+
+        switch (AppSession.getModelo().getMockInfo()){
+            case FOCUS:
+                imagemModelo.setImageResource(R.drawable.focus);
+                break;
+            case ECOSPORT:
+                imagemModelo.setImageResource(R.drawable.ecosport);
+                break;
+            case FUSION:
+                break;
+            case KA:
+                break;
+            case FIESTA:
+                break;
+        }
 
         TarefaFragmentItens tarefaFragmentItens = new TarefaFragmentItens(context, recyclerView);
         tarefaFragmentItens.execute();

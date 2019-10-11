@@ -41,10 +41,11 @@ public class TarefaConsultarModelos extends AsyncTask<Void, Void, Modelo[]> {
     protected void onPostExecute(Modelo[] modelos) {
         Log.i("TarefaConsultarModelo", "Post Execute - Thread: " + Thread.currentThread().getName());
 
+        Modelo carro = new Modelo();
+
         if (this.spinner != null) {
             ArrayAdapter<Modelo> adapter = new ArrayAdapter<>(this.context, android.R.layout.simple_spinner_dropdown_item, modelos);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
             this.spinner.setAdapter(adapter);
         }
     }
