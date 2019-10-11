@@ -40,15 +40,12 @@ public class Start extends AppCompatActivity {
                 switch (AppSession.getModelo().getMockInfo()) {
                     case FOCUS:
                     case ECOSPORT:
+                    case FUSION:
+                    case KA:
+                    case FIESTA:
                         intent = new Intent(view.getContext(), MainActivity.class);
                         startActivity(intent);
 
-                        break;
-                    case FUSION:
-                        break;
-                    case KA:
-                        break;
-                    case FIESTA:
                         break;
                 }
             }

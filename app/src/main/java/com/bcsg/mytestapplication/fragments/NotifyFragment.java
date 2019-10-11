@@ -42,10 +42,13 @@ public class NotifyFragment extends Fragment {
                 imagemModelo.setImageResource(R.drawable.ecosport);
                 break;
             case FUSION:
+                imagemModelo.setImageResource(R.drawable.fusion);
                 break;
             case KA:
+                imagemModelo.setImageResource(R.drawable.ka);
                 break;
             case FIESTA:
+                imagemModelo.setImageResource(R.drawable.fiesta);
                 break;
         }
 

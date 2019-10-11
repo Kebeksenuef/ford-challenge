@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,10 +75,13 @@ public class HomeFragment extends Fragment {
                 imagemModelo.setImageResource(R.drawable.ecosport);
                 break;
             case FUSION:
+                imagemModelo.setImageResource(R.drawable.fusion);
                 break;
             case KA:
+                imagemModelo.setImageResource(R.drawable.ka);
                 break;
             case FIESTA:
+                imagemModelo.setImageResource(R.drawable.fiesta);
                 break;
         }
 
@@ -192,8 +194,8 @@ public class HomeFragment extends Fragment {
 
     private String formatarQuilometragem(float quilometragem) {
         NumberFormat formatador = NumberFormat.getNumberInstance(new Locale( "pt", "BR" ));
-        formatador.setMinimumFractionDigits(2);
-        formatador.setMaximumFractionDigits(2);
+        formatador.setMinimumFractionDigits(0);
+        formatador.setMaximumFractionDigits(0);
 
         return formatador.format(quilometragem);
     }
