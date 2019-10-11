@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.MainActivity">
+    tools:context="br.com.fiap.flan2.activity.MainActivity">
 
     <include
         layout="@layout/app_bar_main"

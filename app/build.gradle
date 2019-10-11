@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.bcsg.mytestapplication"
+        applicationId "br.com.fiap.flan2"
         minSdkVersion 26
         targetSdkVersion 28
         versionCode 1

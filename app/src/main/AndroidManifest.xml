@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.bcsg.mytestapplication">
+    package="br.com.fiap.flan2">
 
     <!-- To access Google+ APIs: -->
     <application
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.Start"
+        <activity android:name="br.com.fiap.flan2.activity.Start"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,11 +21,11 @@
         </activity>
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name="br.com.fiap.flan2.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".activity.CheckActivity" android:label="@string/itens_revisao"
+        <activity android:name="br.com.fiap.flan2.activity.CheckActivity" android:label="@string/itens_revisao"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
@@ -33,7 +33,7 @@
             android:launchMode="singleTop" />
 
         <receiver
-            android:name=".sdl.sdl.SdlReceiver"
+            android:name="br.com.fiap.flan2.sdl.SdlReceiver"
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver">
@@ -45,10 +45,10 @@
         </receiver>
 
         <service
-            android:name=".sdl.sdl.SdlService"
+            android:name="br.com.fiap.flan2.sdl.SdlService"
             android:enabled="true" />
         <service
-            android:name=".sdl.sdl.SdlRouterService"
+            android:name="br.com.fiap.flan2.sdl.SdlRouterService"
             android:exported="true"
             android:process="com.smartdevicelink.router">
             <intent-filter>
