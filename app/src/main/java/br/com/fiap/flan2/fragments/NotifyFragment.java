@@ -26,8 +26,6 @@ public class NotifyFragment extends Fragment {
 
     private static final String TAG = "NotifyFragment";
 
-    public static final int TAG_CODIGO_REVISAO = R.id.txtValorRevisao;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,7 +39,7 @@ public class NotifyFragment extends Fragment {
         botaoRealizarRevisao.setClickable(true);
         botaoRealizarRevisao.setText("Já fiz a revisão!");
         botaoRealizarRevisao.setOnClickListener(x -> {
-            int codigoRevisao = (int)x.findViewById(R.id.txtValorRevisao).getTag(TAG_CODIGO_REVISAO);
+            int codigoRevisao = (int)x.findViewById(R.id.txtValorRevisao).getTag();
 
             boolean sucesso = AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
 
