@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -25,7 +26,7 @@ public class NotifyFragment extends Fragment {
 
     private static final String TAG = "NotifyFragment";
 
-    public static final int TAG_CODIGO_REVISAO = 0;
+    public static final int TAG_CODIGO_REVISAO = R.id.txtValorRevisao;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,10 +43,14 @@ public class NotifyFragment extends Fragment {
         botaoRealizarRevisao.setOnClickListener(x -> {
             int codigoRevisao = (int)x.findViewById(R.id.txtValorRevisao).getTag(TAG_CODIGO_REVISAO);
 
-            AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
+            boolean sucesso = AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
 
-            botaoRealizarRevisao.setClickable(false);
-            botaoRealizarRevisao.setText("Revisão confirmada!");
+            if (sucesso) {
+                botaoRealizarRevisao.setClickable(false);
+                botaoRealizarRevisao.setText("Revisão confirmada!");
+            } else {
+                Toast.makeText(context, "Não foi possível realizar a revisão", Toast.LENGTH_LONG);
+            }
         });
 
         AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);

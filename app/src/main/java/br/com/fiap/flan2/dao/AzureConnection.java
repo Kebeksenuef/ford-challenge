@@ -189,15 +189,21 @@ public class AzureConnection {
         return revisoes;
     }
 
-    public static void realizarRevisao(String chassi, int codigoRevisao) {
+    public static boolean realizarRevisao(String chassi, int codigoRevisao) {
+        boolean sucesso = false;
+
         try (Connection conexao = getConnection()) {
             PreparedStatement comando = conexao.prepareStatement(COMANDO_INSERT_REVISAO);
             comando.setString(1, chassi);
             comando.setInt(2, codigoRevisao);
             comando.executeUpdate();
             comando.close();
+
+            sucesso = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return sucesso;
     }
 }
