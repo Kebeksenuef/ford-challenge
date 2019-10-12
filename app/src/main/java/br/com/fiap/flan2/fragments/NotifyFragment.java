@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.fiap.flan2.AppSession;
 import br.com.fiap.flan2.R;
+import br.com.fiap.flan2.dao.AzureConnection;
 import br.com.fiap.flan2.dao.TarefaProximaRevisao;
 
 /**
@@ -23,6 +25,8 @@ public class NotifyFragment extends Fragment {
 
     private static final String TAG = "NotifyFragment";
 
+    public static final int TAG_CODIGO_REVISAO = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,7 +34,14 @@ public class NotifyFragment extends Fragment {
 
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.recycle_view_itens);
-        TextView textView = view.findViewById(R.id.txtValorRevisao);
+        TextView textViewValor = view.findViewById(R.id.txtValorRevisao);
+
+        AppCompatButton botaoRealizarRevisao = view.findViewById(R.id.btnRealizarRevisao);
+        botaoRealizarRevisao.setOnClickListener(x -> {
+            int codigoRevisao = (int)x.findViewById(R.id.txtCodigoProximaRevisao).getTag(TAG_CODIGO_REVISAO);
+
+            AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
+        });
 
         AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);
 
@@ -52,7 +63,7 @@ public class NotifyFragment extends Fragment {
                 break;
         }
 
-        TarefaProximaRevisao tarefaProximaRevisao = new TarefaProximaRevisao(context,recyclerView, textView);
+        TarefaProximaRevisao tarefaProximaRevisao = new TarefaProximaRevisao(context,recyclerView, textViewValor);
         tarefaProximaRevisao.execute();
 
         // Inflate the layout for this fragment

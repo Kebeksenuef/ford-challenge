@@ -1,17 +1,19 @@
 package br.com.fiap.flan2.dao;
 
 import android.util.Log;
-import br.com.fiap.flan2.dto.ItemRevisao;
-import br.com.fiap.flan2.dto.Modelo;
-import br.com.fiap.flan2.dto.Revisao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.SQLException;
 import java.util.List;
+
+import br.com.fiap.flan2.dto.ItemRevisao;
+import br.com.fiap.flan2.dto.Modelo;
+import br.com.fiap.flan2.dto.Revisao;
 
 public class AzureConnection {
 
@@ -38,6 +40,10 @@ public class AzureConnection {
             "\tLEFT JOIN VEICULO_REVISAO VR ON VR.CODIGO_REVISAO = R.CODIGO AND VR.CODIGO_VEICULO = ?\n" +
             "WHERE R.CODIGO_MODELO = ?\n" +
             "ORDER BY R.LIMITE_QUILOMETRAGEM;";
+    private static final String COMANDO_INSERT_REVISAO = "INSERT INTO VEICULO_REVISAO\n" +
+            "(CODIGO_VEICULO, CODIGO_REVISAO, DATA_REALIZACAO)\n" +
+            "VALUES\n" +
+            "(?, ?, GETDATE())";
 
     private static final String TAG = "CONEXÃO";
 
@@ -181,5 +187,17 @@ public class AzureConnection {
         }
 
         return revisoes;
+    }
+
+    public static void realizarRevisao(String chassi, int codigoRevisao) {
+        try (Connection conexao = getConnection()) {
+            PreparedStatement comando = conexao.prepareStatement(COMANDO_INSERT_REVISAO);
+            comando.setString(1, chassi);
+            comando.setInt(2, codigoRevisao);
+            comando.executeUpdate();
+            comando.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

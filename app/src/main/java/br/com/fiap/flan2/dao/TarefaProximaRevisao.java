@@ -8,24 +8,25 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import br.com.fiap.flan2.AppSession;
 import br.com.fiap.flan2.adapter.RecycleAdapter;
 import br.com.fiap.flan2.dto.Revisao;
-
-import java.text.NumberFormat;
-import java.util.Locale;
+import br.com.fiap.flan2.fragments.NotifyFragment;
 
 public class TarefaProximaRevisao extends AsyncTask<Void, Void, Revisao> {
 
     private Context context;
     private RecyclerView recyclerView;
-    private TextView textView;
+    private TextView textViewValor;
 
-    public TarefaProximaRevisao(Context context, RecyclerView recyclerView, TextView textView) {
+    public TarefaProximaRevisao(Context context, RecyclerView recyclerView, TextView textViewValor) {
         super();
         this.context = context;
         this.recyclerView = recyclerView;
-        this.textView = textView;
+        this.textViewValor = textViewValor;
     }
 
     @Override
@@ -59,7 +60,8 @@ public class TarefaProximaRevisao extends AsyncTask<Void, Void, Revisao> {
         String valorVista = formatarValor(revisao.getValorVista());
         String valorParcela = formatarValor(revisao.getValorParcela());
 
-        this.textView.setText(String.format("À Vista R$ %s ou %dX de R$ %s", valorVista, revisao.getQuantidadeParcelas(), valorParcela));
+        this.textViewValor.setTag(NotifyFragment.TAG_CODIGO_REVISAO, revisao.getCodigo());
+        this.textViewValor.setText(String.format("À Vista R$ %s ou %dX de R$ %s", valorVista, revisao.getQuantidadeParcelas(), valorParcela));
     }
 
     private String formatarValor(float valor) {
