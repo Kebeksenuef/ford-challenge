@@ -39,7 +39,7 @@ public class NotifyFragment extends Fragment {
         botaoRealizarRevisao.setClickable(true);
         botaoRealizarRevisao.setText("Já fiz a revisão!");
         botaoRealizarRevisao.setOnClickListener(x -> {
-            int codigoRevisao = (int)x.findViewById(R.id.txtValorRevisao).getTag();
+            int codigoRevisao = (int)textViewValor.getTag();
 
             boolean sucesso = AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
 
