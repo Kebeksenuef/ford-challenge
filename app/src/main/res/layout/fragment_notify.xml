@@ -63,13 +63,6 @@
             android:layout_marginTop="10dp"
             />
 
-        <TextView
-            android:id="@+id/txtCodigoProximaRevisao"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnRealizarRevisao"
             android:layout_width="wrap_content"
