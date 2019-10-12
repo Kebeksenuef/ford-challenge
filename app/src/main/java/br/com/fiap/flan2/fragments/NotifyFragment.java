@@ -38,7 +38,7 @@ public class NotifyFragment extends Fragment {
 
         AppCompatButton botaoRealizarRevisao = view.findViewById(R.id.btnRealizarRevisao);
         botaoRealizarRevisao.setOnClickListener(x -> {
-            int codigoRevisao = (int)x.findViewById(R.id.txtCodigoProximaRevisao).getTag(TAG_CODIGO_REVISAO);
+            int codigoRevisao = (int)x.findViewById(R.id.txtValorRevisao).getTag(TAG_CODIGO_REVISAO);
 
             AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
         });
