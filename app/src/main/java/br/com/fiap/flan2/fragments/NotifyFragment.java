@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -16,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.fiap.flan2.AppSession;
 import br.com.fiap.flan2.R;
-import br.com.fiap.flan2.dao.AzureConnection;
 import br.com.fiap.flan2.dao.TarefaProximaRevisao;
+import br.com.fiap.flan2.dao.TarefaRealizarRevisao;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,17 +37,11 @@ public class NotifyFragment extends Fragment {
         AppCompatButton botaoRealizarRevisao = view.findViewById(R.id.btnRealizarRevisao);
         botaoRealizarRevisao.setClickable(true);
         botaoRealizarRevisao.setText("Já fiz a revisão!");
-        botaoRealizarRevisao.setOnClickListener(x -> {
+        botaoRealizarRevisao.setOnClickListener(b -> {
             int codigoRevisao = (int)textViewValor.getTag();
 
-            boolean sucesso = AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
-
-            if (sucesso) {
-                botaoRealizarRevisao.setClickable(false);
-                botaoRealizarRevisao.setText("Revisão confirmada!");
-            } else {
-                Toast.makeText(context, "Não foi possível realizar a revisão", Toast.LENGTH_LONG);
-            }
+            TarefaRealizarRevisao tarefaRealizarRevisao = new TarefaRealizarRevisao(context, botaoRealizarRevisao, codigoRevisao);
+            tarefaRealizarRevisao.execute();
         });
 
         AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);
