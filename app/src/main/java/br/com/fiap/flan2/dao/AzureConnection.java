@@ -197,7 +197,7 @@ public class AzureConnection {
             PreparedStatement comando = conexao.prepareStatement(COMANDO_INSERT_REVISAO);
             comando.setString(1, chassi);
             comando.setInt(2, codigoRevisao);
-            comando.setDate(3, new java.sql.Date(new Date().getTime()));
+            comando.setTimestamp(3, new java.sql.Timestamp(new Date().getTime()));
             comando.executeUpdate();
             comando.close();
 
