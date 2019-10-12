@@ -37,10 +37,15 @@ public class NotifyFragment extends Fragment {
         TextView textViewValor = view.findViewById(R.id.txtValorRevisao);
 
         AppCompatButton botaoRealizarRevisao = view.findViewById(R.id.btnRealizarRevisao);
+        botaoRealizarRevisao.setClickable(true);
+        botaoRealizarRevisao.setText("Já fiz a revisão!");
         botaoRealizarRevisao.setOnClickListener(x -> {
             int codigoRevisao = (int)x.findViewById(R.id.txtValorRevisao).getTag(TAG_CODIGO_REVISAO);
 
             AzureConnection.realizarRevisao(AppSession.getModelo().getMockInfo().getChassi(), codigoRevisao);
+
+            botaoRealizarRevisao.setClickable(false);
+            botaoRealizarRevisao.setText("Revisão confirmada!");
         });
 
         AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);
