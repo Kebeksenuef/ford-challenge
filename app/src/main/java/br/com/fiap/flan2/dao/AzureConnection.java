@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.fiap.flan2.dto.ItemRevisao;
@@ -43,7 +44,7 @@ public class AzureConnection {
     private static final String COMANDO_INSERT_REVISAO = "INSERT INTO VEICULO_REVISAO\n" +
             "(CODIGO_VEICULO, CODIGO_REVISAO, DATA_REALIZACAO)\n" +
             "VALUES\n" +
-            "(?, ?, GETDATE())";
+            "(?, ?, ?)";
 
     private static final String TAG = "CONEXÃO";
 
@@ -196,6 +197,7 @@ public class AzureConnection {
             PreparedStatement comando = conexao.prepareStatement(COMANDO_INSERT_REVISAO);
             comando.setString(1, chassi);
             comando.setInt(2, codigoRevisao);
+            comando.setDate(3, new java.sql.Date(new Date().getTime()));
             comando.executeUpdate();
             comando.close();
 
