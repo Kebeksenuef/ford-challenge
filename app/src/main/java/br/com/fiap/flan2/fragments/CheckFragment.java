@@ -42,17 +42,15 @@ public class CheckFragment extends Fragment {
         Context context = view.getContext();
         RecyclerView recyclerView = view.findViewById(R.id.recycle_view_itens_frag);
 
-        AppCompatButton btnSalvar = view.findViewById(R.id.btnSalvar);
+        /*AppCompatButton btnSalvar = view.findViewById(R.id.btnSalvar);
         btnSalvar.setClickable(true);
         btnSalvar.setOnClickListener(b ->{
-
             //escolhendo arquivo (imagem):
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("image/*");
             startActivityForResult(intent, READ_REQUEST_CODE);
-
-        });
+        });*/
 
         AppCompatImageView imagemModelo = view.findViewById(R.id.imgImagemVeiculo);
 
@@ -74,13 +72,18 @@ public class CheckFragment extends Fragment {
                 break;
         }
 
-        AppCompatButton botaoConfirmar = view.findViewById(R.id.btnConfirmarManutencao);
+        AppCompatButton botaoConfirmar = view.findViewById(R.id.btnConfirmarMenutencao);
         botaoConfirmar.setOnClickListener(x -> {
             ItensManutencaoAdapter adapter = (ItensManutencaoAdapter)recyclerView.getAdapter();
             Set<ItemRevisao> itensSelecionados = adapter.getItensSelecionados();
 
-            TarefaRealizarManutencao tarefaRealizarManutencao = new TarefaRealizarManutencao(context, botaoConfirmar, itensSelecionados);
-            tarefaRealizarManutencao.execute("Teste" /* TODO: COLOCAR CAMPO NO FRAGMENTO PARA DESCRICAO */);
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(intent, READ_REQUEST_CODE);
+
+            //TarefaRealizarManutencao tarefaRealizarManutencao = new TarefaRealizarManutencao(context, botaoConfirmar, itensSelecionados);
+            //tarefaRealizarManutencao.execute("Teste" /* TODO: COLOCAR CAMPO NO FRAGMENTO PARA DESCRICAO */);
         });
 
         TarefaFragmentItens tarefaFragmentItens = new TarefaFragmentItens(context, recyclerView);

@@ -65,7 +65,7 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnConfirmarManutencao"
+                    android:id="@+id/btnConfirmManutencao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

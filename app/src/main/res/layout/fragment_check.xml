@@ -48,11 +48,11 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnSalvar"
+                    android:id="@+id/btnConfirmarMenutencao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Salvar"
+                    android:text="Confirmar manutenção"
                     android:textColor="@color/black"
                     android:textAllCaps="false"
                     android:textSize="16dp"

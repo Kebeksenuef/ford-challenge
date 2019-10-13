@@ -33,7 +33,7 @@
             android:layout_height="180dp"
             android:elevation="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="30dp"
             android:background="@color/white"
             />
 
@@ -53,7 +53,7 @@
             android:layout_height="180dp"
             android:elevation="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="30dp"
             android:background="@color/white"
             />
 
