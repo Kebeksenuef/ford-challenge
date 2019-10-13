@@ -24,7 +24,7 @@
             android:layout_marginTop="50dp"
             android:textSize="16sp"
             android:textColor="@color/white"
-            android:text="Revisções feitas: "
+            android:text="Revisões feitas: "
             />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -33,7 +33,7 @@
             android:layout_height="180dp"
             android:elevation="0dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="45dp"
             android:background="@color/white"
             />
 

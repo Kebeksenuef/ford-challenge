@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         HomeFragment fragment = new HomeFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.frame_layout, fragment, "Home");
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
     }
@@ -79,26 +80,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             HomeFragment fragment = new HomeFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Home");
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }else if(id == R.id.consecionárias) {
             ConseFragment fragment = new ConseFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Consecionárias");
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }else if(id == R.id.revisões) {
             RevisionFragment fragment = new RevisionFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Revisões");
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }else if (id == R.id.setting){
             SettingFragment fragment = new SettingFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Configurações");
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }else if (id == R.id.logout){
             LogoutFragment fragment = new LogoutFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Logout");
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
 

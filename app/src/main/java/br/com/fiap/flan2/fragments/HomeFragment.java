@@ -169,6 +169,7 @@ public class HomeFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frame_layout, new NotifyFragment());
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 //Intent intent = new Intent(v.getContext(), CheckActivity.class);
                 //startActivity(intent);
@@ -182,6 +183,7 @@ public class HomeFragment extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frame_layout, new CheckFragment());
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
