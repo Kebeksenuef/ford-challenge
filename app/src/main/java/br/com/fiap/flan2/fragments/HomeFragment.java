@@ -22,12 +22,11 @@ import com.smartdevicelink.proxy.rpc.enums.PRNDL;
 import com.smartdevicelink.proxy.rpc.enums.Result;
 import com.smartdevicelink.proxy.rpc.listeners.OnRPCResponseListener;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import br.com.fiap.flan2.AppSession;
 import br.com.fiap.flan2.R;
 import br.com.fiap.flan2.TelematicsCollector;
+import br.com.fiap.flan2.dao.TarefaProximaRevisao;
+import br.com.fiap.flan2.dto.Revisao;
 import br.com.fiap.flan2.sdl.globalvariables.Config;
 
 /**
@@ -41,9 +40,11 @@ public class HomeFragment extends Fragment {
     //private final String PLUS_ONE_URL = "http://developer.android.com";
     //private PlusOneButton mPlusOneButton;
 
-    private Button btnMostrar, btnVerificar, btnNotificar;
+    private Button btnVerificar, btnNotificar;
     private TextView txtStatus, txtKm,txtAviso;
     private static final String TAG = "MainActivity";
+
+    private Revisao proximaRevisao;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -55,14 +56,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        btnMostrar = (Button) view.findViewById(R.id.btnMostrar);
         btnNotificar = view.findViewById(R.id.btnNotificar);
         btnVerificar = view.findViewById(R.id.btnVerificar);
 
         txtStatus = (TextView) view.findViewById(R.id.txtStatus);
         txtKm = (TextView) view.findViewById(R.id.txtKm);
 
-        txtKm.setText(String.format("%s Km", formatarQuilometragem(AppSession.getModelo().getMockInfo().getQuilometragem())));
+        // Carrega as informacoes da proxima revisao
+        TarefaProximaRevisao tarefaProximaRevisao = new TarefaProximaRevisao(this, txtKm);
+        tarefaProximaRevisao.execute();
 
         final Activity activity = getActivity();
 
@@ -123,52 +125,14 @@ public class HomeFragment extends Fragment {
                 }
         });
 
-        //Mostrar status do carro kilimetragem...
-        btnMostrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //você só consegue pegar os dados se a conexão com o SYNC for estabelecida pelo SdlService
-                if (Config.sdlServiceIsActive) {
-                    //exemplo de chamada normal
-                    //TelematicsCollector.getInstance().getVehicleData();
-                    //exemplo de chamada passando o rpcListener como parametro
-                    TelematicsCollector.getInstance().getVehicleData(new OnRPCResponseListener() {
-                        @Override
-                        public void onResponse(int correlationId, RPCResponse response) {
-                            Log.i(TAG,"Houve uma resposta RPC!");
-                            if(response.getSuccess()){
-                                PRNDL prndl = ((GetVehicleDataResponse) response).getPrndl();
-                                //TelematicsCollector tc = new TelematicsCollector();
-                                //txtKm.setText("Modelo CARRO: "+tc.getVehicleType().getModel());
-                                //txtKm.setText("MODELO: CARRO: "+dado);
-                                //System.out.println("MODELO CARRO: "+dado);
-                                //HMIScreenManager.getInstance().showAlert("PRNDL status: " + prndl.toString());
-                                //Integer km = ((GetVehicleDataResponse) response).getOdometer();
-                                //txtKm.setText("KM atual: " + km);
-                                txtStatus.setText("PRNDL Status: "+ prndl.toString());
-                            }else{
-                                Log.i("SdlService", "GetVehicleData was rejected.");
-                            }
-                        }
-                        @Override
-                        public void onError(int correlationId, Result resultCode, String info){
-                            Log.e(TAG, "onError: "+ resultCode+ " | Info: "+ info );
-                        }
-                    });
-                } else {
-                    Toast.makeText(activity, "Conexão com o SYNC não foi estabelecida", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         //verificar as peças a serem vistas na manutenção
         btnVerificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NotifyFragment fragment = new NotifyFragment();
+                NotifyFragment fragment = new NotifyFragment(proximaRevisao);
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new NotifyFragment());
+                fragmentTransaction.replace(R.id.frame_layout, fragment);
                 fragmentTransaction.commit();
                 //Intent intent = new Intent(v.getContext(), CheckActivity.class);
                 //startActivity(intent);
@@ -181,10 +145,11 @@ public class HomeFragment extends Fragment {
                 CheckFragment fragment = new CheckFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame_layout, new CheckFragment());
+                fragmentTransaction.replace(R.id.frame_layout, fragment);
                 fragmentTransaction.commit();
             }
         });
+
         return view;
     }
 
@@ -193,11 +158,11 @@ public class HomeFragment extends Fragment {
         super.onResume();
     }
 
-    private String formatarQuilometragem(float quilometragem) {
-        NumberFormat formatador = NumberFormat.getNumberInstance(new Locale( "pt", "BR" ));
-        formatador.setMinimumFractionDigits(0);
-        formatador.setMaximumFractionDigits(0);
+    public Revisao getProximaRevisao() {
+        return proximaRevisao;
+    }
 
-        return formatador.format(quilometragem);
+    public void setProximaRevisao(Revisao proximaRevisao) {
+        this.proximaRevisao = proximaRevisao;
     }
 }

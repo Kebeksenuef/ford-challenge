@@ -35,6 +35,7 @@ public class AzureConnection {
             "\tLEFT JOIN VEICULO_REVISAO VR ON VR.CODIGO_REVISAO = R.CODIGO AND VR.CODIGO_VEICULO = ?\n" +
             "WHERE VR.CODIGO_REVISAO IS NULL\n" +
             "\tAND R.CODIGO_MODELO = ?\n" +
+            "\tAND R.LIMITE_QUILOMETRAGEM > ?\n" +
             "ORDER BY R.LIMITE_QUILOMETRAGEM;\n";
     private static final String QUERY_CONSULTA_REVISOES_POR_VEICULO = "SELECT R.*, CASE WHEN (VR.CODIGO_REVISAO IS NULL) THEN 'N' ELSE 'S' END AS INDICADOR_REVISAO_REALIZADA\n" +
             "FROM REVISAO R\n" +
@@ -127,17 +128,18 @@ public class AzureConnection {
         return itens;
     }
 
-    public static Revisao consultarProximaRevisao(String chassi, int codigoModelo) {
+    public static Revisao consultarProximaRevisao(String chassi, int codigoModelo, float quilometragem) {
         Revisao revisao = null;
 
         try (Connection conexao = getConnection()) {
             PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_PROXIMA_REVISAO);
             comando.setString(1, chassi);
             comando.setInt(2, codigoModelo);
+            comando.setFloat(3, quilometragem);
 
             ResultSet resultado = comando.executeQuery();
 
-            while (resultado.next()) {
+            if (resultado.next()) {
                 revisao = new Revisao();
                 revisao.setCodigo(resultado.getInt("CODIGO"));
                 revisao.setCodigoModelo(resultado.getInt("CODIGO_MODELO"));

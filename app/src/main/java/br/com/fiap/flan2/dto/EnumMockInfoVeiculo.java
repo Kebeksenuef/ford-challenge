@@ -10,9 +10,9 @@ public enum EnumMockInfoVeiculo {
     SELECIONE("CHASSI-NADA",0);
 
     private String chassi;
-    private float quilometragem;
+    private int quilometragem;
 
-    EnumMockInfoVeiculo(String chassi, float quilometragem) {
+    EnumMockInfoVeiculo(String chassi, int quilometragem) {
         this.chassi = chassi;
         this.quilometragem = quilometragem;
     }
@@ -38,7 +38,7 @@ public enum EnumMockInfoVeiculo {
         return chassi;
     }
 
-    public float getQuilometragem() {
+    public int getQuilometragem() {
         return quilometragem;
     }
 }

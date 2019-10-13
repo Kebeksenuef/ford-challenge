@@ -11,12 +11,17 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import br.com.fiap.flan2.AppSession;
 import br.com.fiap.flan2.R;
-import br.com.fiap.flan2.dao.TarefaProximaRevisao;
+import br.com.fiap.flan2.adapter.RecycleAdapter;
 import br.com.fiap.flan2.dao.TarefaRealizarRevisao;
+import br.com.fiap.flan2.dto.Revisao;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +29,12 @@ import br.com.fiap.flan2.dao.TarefaRealizarRevisao;
 public class NotifyFragment extends Fragment {
 
     private static final String TAG = "NotifyFragment";
+
+    private Revisao proximaRevisao;
+
+    public NotifyFragment(Revisao proximaRevisao) {
+        this.proximaRevisao = proximaRevisao;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,11 +75,32 @@ public class NotifyFragment extends Fragment {
                 break;
         }
 
-        TarefaProximaRevisao tarefaProximaRevisao = new TarefaProximaRevisao(context,recyclerView, textViewValor);
-        tarefaProximaRevisao.execute();
+        if (proximaRevisao != null) {
+            LinearLayoutManager llm =  new LinearLayoutManager(context);
+            RecycleAdapter adapter = new RecycleAdapter(proximaRevisao.getItens());
+
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(llm);
+            recyclerView.setAdapter(adapter);
+
+            String valorVista = formatarValor(proximaRevisao.getValorVista());
+            String valorParcela = formatarValor(proximaRevisao.getValorParcela());
+
+            textViewValor.setTag(proximaRevisao.getCodigo());
+            textViewValor.setText(String.format("À Vista R$ %s ou %dX de R$ %s", valorVista, proximaRevisao.getQuantidadeParcelas(), valorParcela));
+        } else {
+            textViewValor.setText("Não há revisão");
+        }
 
         // Inflate the layout for this fragment
         return view;
     }
 
+    private String formatarValor(float valor) {
+        NumberFormat formatador = NumberFormat.getNumberInstance(new Locale( "pt", "BR" ));
+        formatador.setMinimumFractionDigits(2);
+        formatador.setMaximumFractionDigits(2);
+
+        return formatador.format(valor);
+    }
 }
