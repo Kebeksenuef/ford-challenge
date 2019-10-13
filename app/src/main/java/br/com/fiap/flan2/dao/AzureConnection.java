@@ -47,6 +47,20 @@ public class AzureConnection {
             "VALUES\n" +
             "(?, ?, ?)";
 
+    private static final String COMANDO_INSERT_MANUTENCAO = "INSERT INTO MANUTENCAO (DESCRICAO, DATA_REALIZACAO) VALUES (?, ?);\n" +
+            "SELECT @@IDENTITY AS 'Identity';  ";
+
+    private static final String COMANDO_INSERT_MANUTENCAO_ITEM = "INSERT INTO ITEM_MANUTENCAO (CODIGO_ITEM, CODIGO_MANUTENCAO, QUANTIDADE) VALUES (?, ?, 1);";
+
+    private static final String COMANDO_INSERT_MANUTENCAO_VEICULO = "INSERT INTO VEICULO_MANUTENCAO (CODIGO_VEICULO, CODIGO_MANUTENCAO) VALUES (?, ?);";
+
+    private static final String QUERY_CONSULTA_MANUTENCOES_POR_VEICULO = "SELECT M.CODIGO, M.DESCRICAO, M.DATA_REALIZACAO, I.CODIGO, I.DESCRICAO\n" +
+            "FROM MANUTENCAO M\n" +
+            "\tINNER JOIN VEICULO_MANUTENCAO VM ON VM.CODIGO_MANUTENCAO = M.CODIGO\n" +
+            "\tINNER JOIN ITEM_MANUTENCAO IM ON IM.CODIGO_MANUTENCAO = M.CODIGO\n" +
+            "\tINNER JOIN ITEM I ON I.CODIGO = IM.CODIGO_ITEM\n" +
+            "WHERE VM.CODIGO_VEICULO = ?";
+
     private static final String TAG = "CONEXÃO";
 
     public static Connection getConnection() {
@@ -209,5 +223,39 @@ public class AzureConnection {
         }
 
         return sucesso;
+    }
+
+    public static long realizarManutencao(String chassi, String descricao, List<ItemRevisao> itens) {
+        long idManutencao = -1;
+
+        try (Connection conexao = getConnection()) {
+            PreparedStatement comandoManutencao = conexao.prepareStatement(COMANDO_INSERT_MANUTENCAO);
+            comandoManutencao.setString(1, descricao);
+            comandoManutencao.setTimestamp(2, new java.sql.Timestamp(new Date().getTime()));
+            ResultSet resultado = comandoManutencao.executeQuery();
+
+            if (resultado.next()) {
+                idManutencao = resultado.getLong(1);
+            }
+
+            for (int i = 0; i < itens.size(); i++) {
+                ItemRevisao item = itens.get(i);
+                PreparedStatement comandoItem = conexao.prepareStatement(COMANDO_INSERT_MANUTENCAO_ITEM);
+                comandoItem.setInt(1, item.getCodigo());
+                comandoItem.setLong(2, idManutencao);
+                comandoItem.executeUpdate();
+            }
+
+            PreparedStatement comandoVeiculo = conexao.prepareStatement(COMANDO_INSERT_MANUTENCAO_VEICULO);
+            comandoVeiculo.setString(1, chassi);
+            comandoVeiculo.setLong(2, idManutencao);
+            comandoVeiculo.executeUpdate();
+
+            comandoManutencao.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return idManutencao;
     }
 }
