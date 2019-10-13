@@ -55,12 +55,6 @@ public class NotifyFragment extends Fragment {
         botaoRealizarRevisao.setOnClickListener(b -> {
             int codigoRevisao = (int)textViewValor.getTag();
 
-            //escolhendo arquivo (imagem):
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("image/*");
-            startActivityForResult(intent, READ_REQUEST_CODE);
-
             TarefaRealizarRevisao tarefaRealizarRevisao = new TarefaRealizarRevisao(context, botaoRealizarRevisao, codigoRevisao);
             tarefaRealizarRevisao.execute();
         });
@@ -112,16 +106,6 @@ public class NotifyFragment extends Fragment {
         formatador.setMaximumFractionDigits(2);
 
         return formatador.format(valor);
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent resultData){
-        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            Uri uri = null;
-            if (resultData != null){
-                uri = resultData.getData();
-                Log.i(TAG,"Uri da imagem: "+uri.getPath());
-            }
-        }
     }
 
 }
