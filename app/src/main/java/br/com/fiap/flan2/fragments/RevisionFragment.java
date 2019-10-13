@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.fiap.flan2.R;
+import br.com.fiap.flan2.dao.TarefaManutencoesFeitas;
 import br.com.fiap.flan2.dao.TarefaRevisoesFeitas;
 
 /**
@@ -27,10 +28,14 @@ public class RevisionFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_revision, container, false);
 
         Context context = view.getContext();
-        RecyclerView recyclerView = view.findViewById(R.id.recycle_view_revisao);
+        RecyclerView recyclerViewRevisoes = view.findViewById(R.id.recycle_view_revisao);
+        RecyclerView recyclerViewManutencoes = view.findViewById(R.id.recycle_view_manutencao);
 
-        TarefaRevisoesFeitas tarefaRevisoesFeitas = new TarefaRevisoesFeitas(context, recyclerView);
+        TarefaRevisoesFeitas tarefaRevisoesFeitas = new TarefaRevisoesFeitas(context, recyclerViewRevisoes);
         tarefaRevisoesFeitas.execute();
+
+        TarefaManutencoesFeitas tarefaManutencoesFeitas = new TarefaManutencoesFeitas(context, recyclerViewManutencoes);
+        tarefaManutencoesFeitas.execute();
 
         return view;
     }

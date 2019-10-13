@@ -80,7 +80,7 @@ public class CheckFragment extends Fragment {
             Set<ItemRevisao> itensSelecionados = adapter.getItensSelecionados();
 
             TarefaRealizarManutencao tarefaRealizarManutencao = new TarefaRealizarManutencao(context, botaoConfirmar, itensSelecionados);
-            tarefaRealizarManutencao.execute();
+            tarefaRealizarManutencao.execute("Teste" /* TODO: COLOCAR CAMPO NO FRAGMENTO PARA DESCRICAO */);
         });
 
         TarefaFragmentItens tarefaFragmentItens = new TarefaFragmentItens(context, recyclerView);
