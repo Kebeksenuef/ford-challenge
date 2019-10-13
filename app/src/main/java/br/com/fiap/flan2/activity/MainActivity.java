@@ -94,7 +94,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Revisões");
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        }else if (id == R.id.setting){
+        }
+
+        /*else if (id == R.id.setting){
             SettingFragment fragment = new SettingFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Configurações");
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Logout");
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        }
+        }*/
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
