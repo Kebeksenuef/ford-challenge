@@ -16,7 +16,7 @@
             />
         <item
             android:id="@+id/revisões"
-            android:title="Revisões"
+            android:title="Histórico"
             android:icon="@drawable/ic_revision"
             />
     </group>
