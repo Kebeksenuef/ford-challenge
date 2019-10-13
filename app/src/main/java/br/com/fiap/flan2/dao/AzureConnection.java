@@ -54,6 +54,13 @@ public class AzureConnection {
 
     private static final String COMANDO_INSERT_MANUTENCAO_VEICULO = "INSERT INTO VEICULO_MANUTENCAO (CODIGO_VEICULO, CODIGO_MANUTENCAO) VALUES (?, ?);";
 
+    private static final String QUERY_CONSULTA_MANUTENCOES_POR_VEICULO = "SELECT M.CODIGO, M.DESCRICAO, M.DATA_REALIZACAO, I.CODIGO, I.DESCRICAO\n" +
+            "FROM MANUTENCAO M\n" +
+            "\tINNER JOIN VEICULO_MANUTENCAO VM ON VM.CODIGO_MANUTENCAO = M.CODIGO\n" +
+            "\tINNER JOIN ITEM_MANUTENCAO IM ON IM.CODIGO_MANUTENCAO = M.CODIGO\n" +
+            "\tINNER JOIN ITEM I ON I.CODIGO = IM.CODIGO_ITEM\n" +
+            "WHERE VM.CODIGO_VEICULO = ?";
+
     private static final String TAG = "CONEXÃO";
 
     public static Connection getConnection() {
