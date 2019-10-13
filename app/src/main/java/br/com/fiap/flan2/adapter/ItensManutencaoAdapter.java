@@ -46,10 +46,12 @@ public class ItensManutencaoAdapter extends RecyclerView.Adapter<ItensManutencao
         holder.cb.setTag(item);
 
         holder.cb.setOnClickListener(x -> {
+            ItemRevisao itemSelecionado = (ItemRevisao)holder.cb.getTag();
+
             if (holder.cb.isChecked()) {
-                itensSelecionados.add(item);
+                itensSelecionados.add(itemSelecionado);
             } else {
-                itensSelecionados.remove(item);
+                itensSelecionados.remove(itemSelecionado);
             }
         });
     }
