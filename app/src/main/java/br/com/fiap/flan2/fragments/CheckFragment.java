@@ -82,8 +82,8 @@ public class CheckFragment extends Fragment {
             intent.setType("image/*");
             startActivityForResult(intent, READ_REQUEST_CODE);
 
-            //TarefaRealizarManutencao tarefaRealizarManutencao = new TarefaRealizarManutencao(context, botaoConfirmar, itensSelecionados);
-            //tarefaRealizarManutencao.execute("Teste" /* TODO: COLOCAR CAMPO NO FRAGMENTO PARA DESCRICAO */);
+            TarefaRealizarManutencao tarefaRealizarManutencao = new TarefaRealizarManutencao(context, botaoConfirmar, itensSelecionados);
+            tarefaRealizarManutencao.execute("Teste" /* TODO: COLOCAR CAMPO NO FRAGMENTO PARA DESCRICAO */);
         });
 
         TarefaFragmentItens tarefaFragmentItens = new TarefaFragmentItens(context, recyclerView);

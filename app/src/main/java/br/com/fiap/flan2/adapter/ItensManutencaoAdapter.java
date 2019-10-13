@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ public class ItensManutencaoAdapter extends RecyclerView.Adapter<ItensManutencao
         if (this.itensRevisao == null){
             this.itensRevisao = new ArrayList<>();
         }
+        this.itensSelecionados = new HashSet<>();
     }
     
     @NonNull

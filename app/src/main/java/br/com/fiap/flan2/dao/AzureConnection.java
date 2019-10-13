@@ -226,8 +226,8 @@ public class AzureConnection {
 
                 item.setCodigo(resultado.getInt("CODIGO_ITEM"));
                 item.setDescricao(resultado.getString("DESCRICAO_ITEM"));
-                item.setPreco(resultado.getFloat("PRECO_ITEM"));
-                item.setQuantidade(resultado.getInt("QUANTIDADE_ITEM"));
+                //item.setPreco(resultado.getFloat("PRECO_ITEM"));
+                //item.setQuantidade(resultado.getInt("QUANTIDADE_ITEM"));
 
                 indice = manutencoes.indexOf(manutencao);
 
