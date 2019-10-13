@@ -59,7 +59,6 @@ public class CheckActivity extends AppCompatActivity  implements NavigationView.
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
     }
 
     @Override
@@ -82,7 +81,9 @@ public class CheckActivity extends AppCompatActivity  implements NavigationView.
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Consecionárias");
             fragmentTransaction.commit();
-        }else if (id == R.id.setting){
+        }
+
+        /*else if (id == R.id.setting){
             SettingFragment fragment = new SettingFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Configurações");
@@ -92,7 +93,7 @@ public class CheckActivity extends AppCompatActivity  implements NavigationView.
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, fragment, "Logout");
             fragmentTransaction.commit();
-        }
+        }*/
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

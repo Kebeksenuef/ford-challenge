@@ -1,8 +1,12 @@
 package br.com.fiap.flan2.fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +33,7 @@ import br.com.fiap.flan2.dto.Revisao;
 public class NotifyFragment extends Fragment {
 
     private static final String TAG = "NotifyFragment";
-
+    private static final int READ_REQUEST_CODE = 42;
     private Revisao proximaRevisao;
 
     public NotifyFragment(Revisao proximaRevisao) {
@@ -50,6 +54,12 @@ public class NotifyFragment extends Fragment {
         botaoRealizarRevisao.setText("Já fiz a revisão!");
         botaoRealizarRevisao.setOnClickListener(b -> {
             int codigoRevisao = (int)textViewValor.getTag();
+
+            //escolhendo arquivo (imagem):
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(intent, READ_REQUEST_CODE);
 
             TarefaRealizarRevisao tarefaRealizarRevisao = new TarefaRealizarRevisao(context, botaoRealizarRevisao, codigoRevisao);
             tarefaRealizarRevisao.execute();
@@ -103,4 +113,15 @@ public class NotifyFragment extends Fragment {
 
         return formatador.format(valor);
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData){
+        if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            Uri uri = null;
+            if (resultData != null){
+                uri = resultData.getData();
+                Log.i(TAG,"Uri da imagem: "+uri.getPath());
+            }
+        }
+    }
+
 }
