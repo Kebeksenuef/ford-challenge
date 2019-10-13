@@ -27,6 +27,14 @@
                     android:layout_marginTop="10dp"
                     />
 
+                <EditText
+                    android:id="@+id/editTextDescricaoManutencao"
+                    android:layout_width="300sp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15sp"/>
+
                 <TextView
                     android:layout_width="300sp"
                     android:layout_height="wrap_content"

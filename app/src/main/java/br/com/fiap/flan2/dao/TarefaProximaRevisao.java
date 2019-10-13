@@ -50,7 +50,7 @@ public class TarefaProximaRevisao extends AsyncTask<Void, Void, Revisao> {
             int quilometragemRestante = quilometragemProximaRevisao - quilometragemAtual;
 
             if (quilometragemRestante > 0) {
-                textViewKm.setText(String.format("%s Km", formatarQuilometragem(AppSession.getModelo().getMockInfo().getQuilometragem())));
+                textViewKm.setText(String.format("%s Km", quilometragemRestante));
             } else {
                 textViewKm.setText("Não há revisão prevista");
             }

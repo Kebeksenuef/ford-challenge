@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -72,10 +73,16 @@ public class CheckFragment extends Fragment {
                 break;
         }
 
+        EditText editDescricaoManutencao = view.findViewById(R.id.editTextDescricaoManutencao);
         AppCompatButton botaoConfirmar = view.findViewById(R.id.btnConfirmarMenutencao);
         botaoConfirmar.setOnClickListener(x -> {
             ItensManutencaoAdapter adapter = (ItensManutencaoAdapter)recyclerView.getAdapter();
             Set<ItemRevisao> itensSelecionados = adapter.getItensSelecionados();
+            String descricaoManutencao = editDescricaoManutencao.getText().toString();
+
+            if (descricaoManutencao == null || descricaoManutencao.trim().length() == 0) {
+                descricaoManutencao = "Manutenção";
+            }
 
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -83,7 +90,7 @@ public class CheckFragment extends Fragment {
             startActivityForResult(intent, READ_REQUEST_CODE);
 
             TarefaRealizarManutencao tarefaRealizarManutencao = new TarefaRealizarManutencao(context, botaoConfirmar, itensSelecionados);
-            tarefaRealizarManutencao.execute("Teste" /* TODO: COLOCAR CAMPO NO FRAGMENTO PARA DESCRICAO */);
+            tarefaRealizarManutencao.execute(descricaoManutencao);
         });
 
         TarefaFragmentItens tarefaFragmentItens = new TarefaFragmentItens(context, recyclerView);
