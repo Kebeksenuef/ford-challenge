@@ -1,5 +1,7 @@
 package br.com.fiap.flan2.dto;
 
+import java.util.Objects;
+
 public class ItemRevisao {
     private int codigo;
     private String descricao;
@@ -54,5 +56,18 @@ public class ItemRevisao {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemRevisao that = (ItemRevisao) o;
+        return codigo == that.codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }

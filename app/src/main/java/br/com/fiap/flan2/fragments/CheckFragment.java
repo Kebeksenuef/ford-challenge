@@ -7,13 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Set;
+
 import br.com.fiap.flan2.AppSession;
 import br.com.fiap.flan2.R;
+import br.com.fiap.flan2.adapter.ItensManutencaoAdapter;
 import br.com.fiap.flan2.dao.TarefaFragmentItens;
+import br.com.fiap.flan2.dao.TarefaRealizarManutencao;
+import br.com.fiap.flan2.dto.ItemRevisao;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +56,15 @@ public class CheckFragment extends Fragment {
                 imagemModelo.setImageResource(R.drawable.fiesta);
                 break;
         }
+
+        AppCompatButton botaoConfirmar = view.findViewById(R.id.btnConfirmarManutencao);
+        botaoConfirmar.setOnClickListener(x -> {
+            ItensManutencaoAdapter adapter = (ItensManutencaoAdapter)recyclerView.getAdapter();
+            Set<ItemRevisao> itensSelecionados = adapter.getItensSelecionados();
+
+            TarefaRealizarManutencao tarefaRealizarManutencao = new TarefaRealizarManutencao(context, botaoConfirmar, itensSelecionados);
+            tarefaRealizarManutencao.execute();
+        });
 
         TarefaFragmentItens tarefaFragmentItens = new TarefaFragmentItens(context, recyclerView);
         tarefaFragmentItens.execute();

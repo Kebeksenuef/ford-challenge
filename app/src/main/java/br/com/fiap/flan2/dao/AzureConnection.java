@@ -9,10 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 import br.com.fiap.flan2.dto.ItemRevisao;
+import br.com.fiap.flan2.dto.Manutencao;
 import br.com.fiap.flan2.dto.Modelo;
 import br.com.fiap.flan2.dto.Revisao;
 
@@ -42,6 +44,15 @@ public class AzureConnection {
             "\tLEFT JOIN VEICULO_REVISAO VR ON VR.CODIGO_REVISAO = R.CODIGO AND VR.CODIGO_VEICULO = ?\n" +
             "WHERE R.CODIGO_MODELO = ?\n" +
             "ORDER BY R.LIMITE_QUILOMETRAGEM;";
+
+    private static final String QUERY_CONSULTA_MANUTENCOES_POR_VEICULO = "SELECT M.CODIGO AS CODIGO_MANUTENCAO, M.DESCRICAO AS DESCRICAO_MANUTENCAO, M.DATA_REALIZACAO, I.CODIGO AS CODIGO_ITEM, I.DESCRICAO AS DESCRICAO_ITEM\n" +
+            "FROM MANUTENCAO M\n" +
+            "\tINNER JOIN VEICULO_MANUTENCAO VM ON VM.CODIGO_MANUTENCAO = M.CODIGO\n" +
+            "\tINNER JOIN ITEM_MANUTENCAO IM ON IM.CODIGO_MANUTENCAO = M.CODIGO\n" +
+            "\tINNER JOIN ITEM I ON I.CODIGO = IM.CODIGO_ITEM\n" +
+            "WHERE VM.CODIGO_VEICULO = ?\n" +
+            "ORDER BY M.CODIGO, I.CODIGO;";
+
     private static final String COMANDO_INSERT_REVISAO = "INSERT INTO VEICULO_REVISAO\n" +
             "(CODIGO_VEICULO, CODIGO_REVISAO, DATA_REALIZACAO)\n" +
             "VALUES\n" +
@@ -53,13 +64,6 @@ public class AzureConnection {
     private static final String COMANDO_INSERT_MANUTENCAO_ITEM = "INSERT INTO ITEM_MANUTENCAO (CODIGO_ITEM, CODIGO_MANUTENCAO, QUANTIDADE) VALUES (?, ?, 1);";
 
     private static final String COMANDO_INSERT_MANUTENCAO_VEICULO = "INSERT INTO VEICULO_MANUTENCAO (CODIGO_VEICULO, CODIGO_MANUTENCAO) VALUES (?, ?);";
-
-    private static final String QUERY_CONSULTA_MANUTENCOES_POR_VEICULO = "SELECT M.CODIGO, M.DESCRICAO, M.DATA_REALIZACAO, I.CODIGO, I.DESCRICAO\n" +
-            "FROM MANUTENCAO M\n" +
-            "\tINNER JOIN VEICULO_MANUTENCAO VM ON VM.CODIGO_MANUTENCAO = M.CODIGO\n" +
-            "\tINNER JOIN ITEM_MANUTENCAO IM ON IM.CODIGO_MANUTENCAO = M.CODIGO\n" +
-            "\tINNER JOIN ITEM I ON I.CODIGO = IM.CODIGO_ITEM\n" +
-            "WHERE VM.CODIGO_VEICULO = ?";
 
     private static final String TAG = "CONEXÃO";
 
@@ -206,6 +210,46 @@ public class AzureConnection {
         return revisoes;
     }
 
+    public static List<Manutencao> consultarManutencoes(String chassi) {
+        List<Manutencao> manutencoes = new ArrayList<>();
+
+        try (Connection conexao = getConnection()) {
+            PreparedStatement comando = conexao.prepareStatement(QUERY_CONSULTA_MANUTENCOES_POR_VEICULO);
+            comando.setString(1, chassi);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                int indice = -1;
+                Manutencao manutencao = new Manutencao(resultado.getInt("CODIGO_MANUTENCAO"));
+                ItemRevisao item = new ItemRevisao();
+
+                item.setCodigo(resultado.getInt("CODIGO_ITEM"));
+                item.setDescricao(resultado.getString("DESCRICAO_ITEM"));
+                item.setPreco(resultado.getFloat("PRECO_ITEM"));
+                item.setQuantidade(resultado.getInt("QUANTIDADE_ITEM"));
+
+                indice = manutencoes.indexOf(manutencao);
+
+                if (indice > -1) {
+                    manutencao = manutencoes.get(indice);
+                } else {
+                    manutencao.setDescricao(resultado.getString("DESCRICAO_MANUTENCAO"));
+                    manutencao.setDataRealizacao(new Date(resultado.getDate("DATA_REALIZACAO").getTime()));
+
+                    manutencoes.add(manutencao);
+                }
+
+                manutencao.getItens().add(item);
+            }
+            comando.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return manutencoes;
+    }
+
     public static boolean realizarRevisao(String chassi, int codigoRevisao) {
         boolean sucesso = false;
 
@@ -225,7 +269,7 @@ public class AzureConnection {
         return sucesso;
     }
 
-    public static long realizarManutencao(String chassi, String descricao, List<ItemRevisao> itens) {
+    public static long realizarManutencao(String chassi, String descricao, Collection<ItemRevisao> itens) {
         long idManutencao = -1;
 
         try (Connection conexao = getConnection()) {
@@ -238,8 +282,7 @@ public class AzureConnection {
                 idManutencao = resultado.getLong(1);
             }
 
-            for (int i = 0; i < itens.size(); i++) {
-                ItemRevisao item = itens.get(i);
+            for (ItemRevisao item : itens) {
                 PreparedStatement comandoItem = conexao.prepareStatement(COMANDO_INSERT_MANUTENCAO_ITEM);
                 comandoItem.setInt(1, item.getCodigo());
                 comandoItem.setLong(2, idManutencao);
