@@ -13,4 +13,4 @@ carro, será informado ao usuário, quantos kilômetros faltam para realizar a p
 visualizar os itens que devem ser revisados a cada 10000 KM, e caso o mesmo tenha feito alguma menutenção antencipada (seja qual for o
 motivo), este poderá informar ao aplicativo e armazenar tais informações em um perfil (ainda não implementado).
 Obs.: O projeto SDL ainda está em desenvolvimento, então é não são todas as marcas que aderiram a iniciativa. Informe-se através do site
-da SDL e com a marca do veículo se o seu carro para autorizar o aplicativo a acessar-lo.
+da SDL e com a montadora sobre as politicas de acesso para o aplicativo.
