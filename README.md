@@ -3,7 +3,8 @@
 Aplicativo desenvolvido para o challenge FIAP 2019 que envolveu as turmas do 4º ano de Engenharia da Computação em parceria com a FORD.
 A partir do sample disponibilizado pela mesma (que são as classes que estão no pacote sdl) os alunos poderiam captar inúmeras informações 
 oriundas de um carro. Tal sample foi desenvolvido através do projeto SDL (Smart Device Link) desenvolvido pela própria FORD. Para mais
-informações sobre esse projeto, acesse: https://www.smartdevicelink.com .
+informações sobre esse projeto, acesse: 
+https://www.smartdevicelink.com .
 Com o SDL é possível interagir com a interface multimídia do carro e enviar um Chamada de procedimento remoto (RPC) e receber a 
 informação desejada pela interface do carro, ou pelo celular. O grande potencial desse prjeto é que o mesmo dispensa o uso de 
 OBD2 para obter informações do carro.
