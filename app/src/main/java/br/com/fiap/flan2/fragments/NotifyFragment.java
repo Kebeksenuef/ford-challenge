@@ -95,8 +95,6 @@ public class NotifyFragment extends Fragment {
         } else {
             textViewValor.setText("Não há revisão");
         }
-
-        // Inflate the layout for this fragment
         return view;
     }
 

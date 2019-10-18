@@ -7,7 +7,8 @@
             android:id="@+id/chbx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start" />
+            android:gravity="start"
+            android:theme="@style/CheckBoxStyle"/>
 
         <TextView
             android:id="@+id/txtItem"
@@ -15,8 +16,10 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:textCursorDrawable="@null"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="35dp"
+            android:focusable="true"
             />
 
 </RelativeLayout>

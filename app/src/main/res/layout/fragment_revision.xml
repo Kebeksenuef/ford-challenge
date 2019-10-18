@@ -29,7 +29,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle_view_revisao"
-            android:layout_width="250dp"
+            android:layout_width="280dp"
             android:layout_height="180dp"
             android:elevation="0dp"
             android:layout_gravity="center_horizontal"
@@ -49,7 +49,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycle_view_manutencao"
-            android:layout_width="250dp"
+            android:layout_width="280dp"
             android:layout_height="180dp"
             android:elevation="0dp"
             android:layout_gravity="center_horizontal"
