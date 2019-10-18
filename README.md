@@ -12,5 +12,5 @@ A partir dessa possibilidade, desenvolvi juntamente como outro colaborador, um a
 carro, será informado ao usuário, quantos kilômetros faltam para realizar a próxima manutenção preventiva. Além disso, o usuário pode
 visualizar os itens que devem ser revisados a cada 10000 KM, e caso o mesmo tenha feito alguma menutenção antencipada (seja qual for o
 motivo), este poderá informar ao aplicativo e armazenar tais informações em um perfil (ainda não implementado).
-Obs.: O projeto SDL ainda está em desenvolvimento, então é não são todas as marcas que aderiram a iniciativa. Informe-se através do site
+Obs.: O projeto SDL ainda está em desenvolvimento, então não são todas as marcas que aderiram a iniciativa. Informe-se através do site
 da SDL e com a montadora sobre as politicas de acesso para o aplicativo.
