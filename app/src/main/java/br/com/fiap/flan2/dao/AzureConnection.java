@@ -20,10 +20,10 @@ import br.com.fiap.flan2.dto.Revisao;
 
 public class AzureConnection {
 
-    private static final String HOST_NAME = "fiap-challenge.database.windows.net";
-    private static final String DATABASE = "Flan2";
-    private static final String USERNAME = "fiap-user";
-    private static final String PASSWORD = "ChallengeP@$$w0rd";
+    private static final String HOST_NAME = "";
+    private static final String DATABASE = "";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
     private static final String CONNECTION_STRING = "jdbc:jtds:sqlserver://%s:1433/%s;user=%s;password=%s;encrypt=true;trustServerCertificate=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
     private static final String QUERY_CONSULTA_MODELOS = "SELECT [CODIGO],[NOME] FROM [dbo].[MODELO] ORDER BY [NOME] DESC";
     private static final String QUERY_CONSULTA_ITENS = "SELECT [CODIGO],[DESCRICAO],[PRECO] FROM [dbo].[ITEM]";
